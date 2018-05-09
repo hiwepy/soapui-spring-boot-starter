@@ -45,7 +45,7 @@ public class SoapUI_Test {
 
 		// wait for the response
 		Response response = submit.getResponse();
-
+		
 		// print the response
 		String content = response.getContentAsString();
 		System.out.println( content );
