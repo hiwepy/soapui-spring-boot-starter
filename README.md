@@ -22,7 +22,7 @@
 
 ####Step 2 ：Modify soapui\soapui\pom.xml and replace XML Beans
 
-> 
+```xml
 <!-- https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans -->
 <dependency>
 	<groupId>org.apache.xmlbeans</groupId>
@@ -39,6 +39,7 @@
 	<artifactId>xmlbeans-xmlpublic</artifactId>
 	<version>2.6.0</version>
 </dependency>
+```
 
 ####Step 3 ：Install To Maven Repository
 
@@ -47,7 +48,3 @@
 ####Step 4 ：Deploy To Nexus Maven Repository
 
 > mvn deploy:deploy-file -DgroupId=com.eviware -DartifactId=soapui -Dversion=5.4.0 -Dpackaging=jar -Dfile=D:\soapui-5.4.0.jar -Durl=${repositoryUrl} -DrepositoryId=${repositoryId}
-
-------------
-``` 
-```
