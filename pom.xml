@@ -478,7 +478,14 @@
             <groupId>javax.xml.bind</groupId>
             <artifactId>jsr173_api</artifactId>
         </dependency>
-
+		
+		<!-- https://mvnrepository.com/artifact/org.wso2.wsdl4j/wsdl4j -->
+		<!-- <dependency>
+		    <groupId>org.wso2.wsdl4j</groupId>
+		    <artifactId>wsdl4j</artifactId>
+		    <version>1.6.3.wso2v3</version>
+		</dependency> -->
+				
 	</dependencies>
 
 </project>
