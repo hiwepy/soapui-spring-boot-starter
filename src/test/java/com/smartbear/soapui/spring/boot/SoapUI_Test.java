@@ -35,16 +35,17 @@ public class SoapUI_Test {
 
 		// import amazon wsdl
 		WsdlInterface iface = WsdlInterfaceFactory.importWsdl( 
-		 project, "http://www.mycorp.com/somewsdl.wsdl", true )[0];
+		 project, "http://www.webxml.com.cn/WebServices/IpAddressSearchWebService.asmx?wsdl", true )[0];
 
 		// get desired operation
-		WsdlOperation operation = (WsdlOperation) iface.getOperationByName( "MyOperation" );
-
+		WsdlOperation operation = (WsdlOperation) iface.getOperationByName( "getCountryCityByIp" );
+		
 		// create a new empty request for that operation
 		WsdlRequest request = operation.addNewRequest( "My request" );
 
 		// generate the request content from the schema
 		request.setRequestContent( operation.createRequest( true ) );
+		
 		
 		// submit the request
 		WsdlSubmit<WsdlRequest> submit = request.submit( new WsdlSubmitContext(request), false );
