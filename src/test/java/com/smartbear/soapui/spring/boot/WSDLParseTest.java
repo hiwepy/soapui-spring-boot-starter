@@ -15,6 +15,10 @@
  */
 package com.smartbear.soapui.spring.boot;
 
+import com.smartbear.soapui.spring.boot.wsdl.InterfaceInfo;
+import com.smartbear.soapui.spring.boot.wsdl.OperationInfo;
+import com.smartbear.soapui.spring.boot.wsdl.WsdlInfo;
+
 /**
  * 
  * http://www.cnblogs.com/coshaho/p/5105545.html
@@ -32,9 +36,9 @@ package com.smartbear.soapui.spring.boot;
 public class WSDLParseTest {
 	
 	public static void main(String[] args) throws Exception {
-		String url = "http://webservice.webxml.com.cn/WebServices/ChinaOpenFundWS.asmx?wsdl";
+		String url = "http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl";
 		WsdlInfo wsdlInfo = new WsdlInfo(url);
-		System.out.println("WSDL URL is " + wsdlInfo.getWsdlName());
+		System.out.println("WSDL URL is " + wsdlInfo.getWsdlUrl());
 
 		for (InterfaceInfo interfaceInfo : wsdlInfo.getInterfaces()) {
 			System.out.println("Interface name is " + interfaceInfo.getInterfaceName());

@@ -1,26 +1,18 @@
 package com.smartbear.soapui.spring.boot;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
 import org.apache.xmlbeans.XmlException;
+import org.junit.Before;
 import org.junit.Test;
 
-import com.eviware.soapui.impl.WsdlInterfaceFactory;
-import com.eviware.soapui.impl.rest.RestRequest;
 import com.eviware.soapui.impl.rest.RestResource;
 import com.eviware.soapui.impl.rest.RestService;
 import com.eviware.soapui.impl.rest.RestServiceFactory;
-import com.eviware.soapui.impl.support.AbstractInterface;
 import com.eviware.soapui.impl.wsdl.InterfaceFactoryRegistry;
-import com.eviware.soapui.impl.wsdl.WsdlInterface;
-import com.eviware.soapui.impl.wsdl.WsdlOperation;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
-import com.eviware.soapui.impl.wsdl.WsdlRequest;
-import com.eviware.soapui.impl.wsdl.WsdlSubmit;
-import com.eviware.soapui.impl.wsdl.WsdlSubmitContext;
 import com.eviware.soapui.model.environment.EnvironmentListener;
 import com.eviware.soapui.model.environment.Property;
 import com.eviware.soapui.model.iface.Request.SubmitException;
@@ -28,10 +20,9 @@ import com.eviware.soapui.model.iface.Response;
 import com.eviware.soapui.model.project.Project;
 import com.eviware.soapui.model.support.ProjectListenerAdapter;
 import com.eviware.soapui.support.SoapUIException;
-import com.eviware.soapui.tools.SoapUIMockServiceRunner;
-import com.eviware.soapui.tools.SoapUITestCaseRunner;
+import com.smartbear.soapui.spring.boot.handler.XMLResponseHandler;
 
-public class SoapUI_Test {
+public class SoapUI_Rest_Test {
 
 	/*@Test
     public void testCalculatorService() throws Exception {
@@ -43,13 +34,15 @@ public class SoapUI_Test {
         mockServiceRunner.run();
         testCaseRunner.run();
 	}*/
-	 
-	//@Test
-	public void testSoap() throws XmlException, IOException, SoapUIException, SubmitException {
-		
+	
+	private SoapUIWsdlTemplate template;
+	private String wsdlUrl = "http://www.webxml.com.cn/WebServices/IpAddressSearchWebService.asmx?wsdl";
+	private XMLResponseHandler handler = new XMLResponseHandler();
+	
+	@Before
+	public void setup() throws XmlException, IOException, SoapUIException {
 		// create new project
 		WsdlProject project = new WsdlProject();
-		
 		project.addEnvironmentListener(new EnvironmentListener() {
 			
 			@Override
@@ -66,34 +59,32 @@ public class SoapUI_Test {
 			
 		});
 		
-		// import amazon wsdl
-		WsdlInterface iface = WsdlInterfaceFactory.importWsdl( 
-		 project, "http://www.webxml.com.cn/WebServices/IpAddressSearchWebService.asmx?wsdl", true )[0];
-
-		// get desired operation
-		WsdlOperation operation = (WsdlOperation) iface.getOperationByName( "getCountryCityByIp" );
+		template = new SoapUIWsdlTemplate(project);
 		
-		// create a new empty request for that operation
-		WsdlRequest request = operation.addNewRequest( "My request" );
+	}
+	 
+	//@Test
+	public void testRest1() throws XmlException, IOException, SoapUIException, SubmitException {
 		
-		// generate the request content from the schema
-		request.setRequestContent( operation.createRequest( true ) );
-		
-		WsdlSubmitContext context = new WsdlSubmitContext(request);
-		
-		context.put("", "127.0.0.1");
-		
-		// submit the request
-		WsdlSubmit<WsdlRequest> submit = request.submit( context, false );
-
 		// wait for the response
-		Response response = submit.getResponse();
+		Response response = template.invokeAt(wsdlUrl, 0);
 		
 		// print the response
 		String content = response.getContentAsString();
 		System.out.println( content );
 		assertNotNull( content );
 		//assertTrue( content.indexOf( "404 Not Found" ) > 0  );
+		
+	}
+	
+	//@Test
+	public void testRest2() throws XmlException, IOException, SoapUIException, SubmitException {
+		
+		// wait for the response
+		String content = template.invokeAt(wsdlUrl, 0, handler);
+		// print the response
+		System.out.println( content );
+		assertNotNull( content );
 		
 	}
 	 

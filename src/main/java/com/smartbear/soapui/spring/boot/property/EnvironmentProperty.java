@@ -13,9 +13,35 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.smartbear.soapui.spring.boot;
+package com.smartbear.soapui.spring.boot.property;
 
+import java.util.Properties;
 
-public @interface MyAnotation {
+public class EnvironmentProperty {
+
+	/**
+	 * Environment Name
+	 */
+	private String name;
+	/**
+	 * Environment Settings
+	 */
+	private Properties settings = new Properties();
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Properties getSettings() {
+		return settings;
+	}
+
+	public void setSettings(Properties settings) {
+		this.settings = settings;
+	}
 
 }

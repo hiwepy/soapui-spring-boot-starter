@@ -13,14 +13,14 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.smartbear.soapui.spring.boot;
+package com.smartbear.soapui.spring.boot.wsdl;
 
 import java.util.HashMap;  
 import java.util.List;  
 import java.util.Map;  
 import org.apache.commons.lang3.StringUtils;  
   
-public class WsMethodInfo  
+public class WsdlMethodInfo  
 {  
   private String methodName;  
   private String methodDesc;  

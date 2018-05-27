@@ -17,71 +17,249 @@ package com.smartbear.soapui.spring.boot;
 
 import java.util.Properties;
 
-import org.springframework.boot.autoconfigure.template.AbstractTemplateViewResolverProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
-public class SoapUIProperties extends AbstractTemplateViewResolverProperties {
+import com.eviware.soapui.impl.wsdl.WsdlProject.ProjectEncryptionStatus;
+import com.eviware.soapui.model.testsuite.TestSuite.TestSuiteRunType;
+import com.smartbear.soapui.spring.boot.property.EnvironmentProperty;
 
-	public static final String DEFAULT_TEMPLATE_LOADER_PATH = "classpath:/templates/";
+@ConfigurationProperties(SoapUIProperties.PREFIX)
+public class SoapUIProperties {
 
-	public static final String DEFAULT_PREFIX = "";
+	public static final String PREFIX = "soapui";
 
-	public static final String DEFAULT_SUFFIX = ".httl";
+	public static enum ScriptLanguage {
+		
+		/** Groovy ScriptEngine. */
+		GROOVY("Groovy"),
+		/** Javascript ScriptEngine. */
+		JAVASCRIPT("Javascript");
+		
+		private String name;
+		
+		private ScriptLanguage(String name) {
+			this.name = name;
+		}
 
-	/**
-	 * Well-known Beetl keys which will be passed to Beetl's  Configuration.
-	 */
-	private Properties settings = new Properties();
+		public String getName() {
+			return name;
+		}
 
-	/**
-	 * Comma-separated list of template paths.
-	 */
-	private String[] templateLoaderPath = new String[] { DEFAULT_TEMPLATE_LOADER_PATH };
-
-	/**
-	 * Prefer file system access for template loading. File system access enables
-	 * hot detection of template changes.
-	 */
-	private boolean preferFileSystemAccess = true;
+	}
 	
 	/**
-	 * 是否自动检查文件是否变动
+	 * Whether Abort On Error
 	 */
-	private boolean autoCheck = false;
+	private boolean abortOnError;
+	
+	/**
+	 * Sets the Default Script Language
+	 */
+	private ScriptLanguage scriptLanguage = ScriptLanguage.GROOVY;
+	
+	/**
+	 * Sets the Script After Load
+	 */
+	private String scriptAfterLoad;
 
-	public SoapUIProperties() {
-		super(DEFAULT_PREFIX, DEFAULT_SUFFIX);
+	/**
+	 * Sets the Script After Run
+	 */
+	private String scriptAfterRun;
+
+	/**
+	 * Sets the Script Before Run
+	 */
+	private String scriptBeforeRun;
+
+	/**
+	 *  Sets the Script Before Save
+	 */
+	private String scriptBeforeSave;
+	/**
+	 * Whether Cache Definitions
+	 */
+	private boolean cacheDefinitions;
+	
+	/**
+	 * The description of the project
+	 */
+	private String description;
+	
+	/**
+	 *  Encryption Status of the project
+	 */
+	private ProjectEncryptionStatus encryptionStatus = ProjectEncryptionStatus.NOT_ENCRYPTED;
+	
+	/**
+	 *  The Config Path of hermes
+	 */
+	private String hermesConfigPath;
+	/**
+	 *  The Name of the project
+	 */
+	private String name;
+	/**
+	 * The properties of the project
+	 */
+	private Properties properties = new Properties();
+	/**
+	 *  The resourceRoot of the project
+	 */
+	private String resourceRoot;
+	/**
+	 *  The runType of the project
+	 */
+	private TestSuiteRunType runType = TestSuiteRunType.PARALLEL;
+	/**
+	 *  The password of the project
+	 */
+	private String password;
+	/**
+	 *  The timeout of the project, default 30s
+	 */
+	private long timeout = 30 * 1000;
+	
+	@NestedConfigurationProperty
+	private EnvironmentProperty env = new EnvironmentProperty();
+
+	public boolean isAbortOnError() {
+		return abortOnError;
 	}
 
-	public Properties getSettings() {
-		return this.settings;
+	public void setAbortOnError(boolean abortOnError) {
+		this.abortOnError = abortOnError;
 	}
 
-	public void setSettings(Properties settings) {
-		this.settings = settings;
+	public ScriptLanguage getScriptLanguage() {
+		return scriptLanguage;
 	}
 
-	public String[] getTemplateLoaderPath() {
-		return this.templateLoaderPath;
+	public void setScriptLanguage(ScriptLanguage scriptLanguage) {
+		this.scriptLanguage = scriptLanguage;
 	}
 
-	public boolean isPreferFileSystemAccess() {
-		return this.preferFileSystemAccess;
+	public String getScriptAfterLoad() {
+		return scriptAfterLoad;
 	}
 
-	public void setPreferFileSystemAccess(boolean preferFileSystemAccess) {
-		this.preferFileSystemAccess = preferFileSystemAccess;
+	public void setScriptAfterLoad(String scriptAfterLoad) {
+		this.scriptAfterLoad = scriptAfterLoad;
 	}
 
-	public void setTemplateLoaderPath(String... templateLoaderPaths) {
-		this.templateLoaderPath = templateLoaderPaths;
+	public String getScriptAfterRun() {
+		return scriptAfterRun;
 	}
 
-	public boolean isAutoCheck() {
-		return autoCheck;
+	public void setScriptAfterRun(String scriptAfterRun) {
+		this.scriptAfterRun = scriptAfterRun;
 	}
 
-	public void setAutoCheck(boolean autoCheck) {
-		this.autoCheck = autoCheck;
+	public String getScriptBeforeRun() {
+		return scriptBeforeRun;
 	}
 
+	public void setScriptBeforeRun(String scriptBeforeRun) {
+		this.scriptBeforeRun = scriptBeforeRun;
+	}
+
+	public String getScriptBeforeSave() {
+		return scriptBeforeSave;
+	}
+
+	public void setScriptBeforeSave(String scriptBeforeSave) {
+		this.scriptBeforeSave = scriptBeforeSave;
+	}
+
+	public boolean isCacheDefinitions() {
+		return cacheDefinitions;
+	}
+
+	public void setCacheDefinitions(boolean cacheDefinitions) {
+		this.cacheDefinitions = cacheDefinitions;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public ProjectEncryptionStatus getEncryptionStatus() {
+		return encryptionStatus;
+	}
+
+	public void setEncryptionStatus(ProjectEncryptionStatus encryptionStatus) {
+		this.encryptionStatus = encryptionStatus;
+	}
+
+	public String getHermesConfigPath() {
+		return hermesConfigPath;
+	}
+
+	public void setHermesConfigPath(String hermesConfigPath) {
+		this.hermesConfigPath = hermesConfigPath;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Properties getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Properties properties) {
+		this.properties = properties;
+	}
+
+	public String getResourceRoot() {
+		return resourceRoot;
+	}
+
+	public void setResourceRoot(String resourceRoot) {
+		this.resourceRoot = resourceRoot;
+	}
+
+	public TestSuiteRunType getRunType() {
+		return runType;
+	}
+
+	public void setRunType(TestSuiteRunType runType) {
+		this.runType = runType;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public long getTimeout() {
+		return timeout;
+	}
+
+	public void setTimeout(long timeout) {
+		this.timeout = timeout;
+	}
+
+	public EnvironmentProperty getEnv() {
+		return env;
+	}
+
+	public void setEnv(EnvironmentProperty env) {
+		this.env = env;
+	}
+
+	
+	
 }

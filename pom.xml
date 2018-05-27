@@ -377,6 +377,7 @@
         <maven-surefire-plugin.vertsion>2.21.0</maven-surefire-plugin.vertsion>
 		<maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
 		<xmlbeans.version>2.6.0</xmlbeans.version>
+		<fastjson.version>1.2.47</fastjson.version>
 	</properties>
 
 	<dependencyManagement>
@@ -1314,6 +1315,13 @@
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
         </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>${fastjson.version}</version>
+		</dependency>
 				
 	</dependencies>
 
