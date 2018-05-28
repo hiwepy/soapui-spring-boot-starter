@@ -15,14 +15,21 @@
  */
 package com.smartbear.soapui.spring.boot;
 
+import java.io.ByteArrayInputStream;
+import java.util.Map;
+
 import com.eviware.soapui.impl.WsdlInterfaceFactory;
 import com.eviware.soapui.impl.wsdl.WsdlInterface;
 import com.eviware.soapui.impl.wsdl.WsdlOperation;
 import com.eviware.soapui.impl.wsdl.WsdlRequest;
 import com.eviware.soapui.impl.wsdl.WsdlSubmit;
 import com.eviware.soapui.impl.wsdl.WsdlSubmitContext;
+import com.eviware.soapui.impl.wsdl.submit.RequestTransportRegistry;
+import com.eviware.soapui.impl.wsdl.submit.transports.http.support.methods.ExtendedPostMethod;
+import com.eviware.soapui.impl.wsdl.support.http.HttpClientSupport;
 import com.eviware.soapui.impl.wsdl.support.wsdl.WsdlContext;
 import com.eviware.soapui.model.iface.Request.SubmitException;
+import com.eviware.soapui.model.iface.Operation;
 import com.eviware.soapui.model.iface.Response;
 import com.eviware.soapui.support.SoapUIException;
 import com.smartbear.soapui.spring.boot.handler.SoapRequestHandler;
@@ -42,82 +49,52 @@ public class SoapuiRequestTemplate {
 		this.wsdlTemplate = wsdlTemplate;
 		this.requestHandler = requestHandler;
 	}
-
-	public WsdlInfo wsdlInfo(String wsdlUrl) throws Exception {
-		return new WsdlInfo(wsdlUrl);
-	}
 	
-	public WsdlInterface[] importWsdl(String wsdlUrl, boolean createRequests) throws SoapUIException {
-		// import amazon wsdl
-		return WsdlInterfaceFactory.importWsdl(project, wsdlUrl, createRequests );
-	}
-	
-	public Response invokeAt(String wsdlUrl, int index) throws SoapUIException, SubmitException {
-		
-		// import amazon wsdl
-		WsdlInterface iface = this.importWsdl(wsdlUrl, true)[0];
-		
-		// get desired operation
-		WsdlOperation operation = (WsdlOperation) iface.getOperationAt(index);
-		
-		// create a new empty request for that operation
-		WsdlRequest request = operation.addNewRequest( "My request" );
-		
-		// generate the request content from the schema
-		request.setRequestContent( operation.createRequest( true ) );
-		
-		WsdlSubmitContext context = new WsdlSubmitContext(request);
-		
-		context.put("", "127.0.0.1");
-		
-		// submit the request
-		WsdlSubmit<WsdlRequest> submit = request.submit( context, false );
-
-		// wait for the response
-		return submit.getResponse();
-		
+	public Map<String, String> sendRequest(String operation, Map<String, Object> params, String wsdlUrl)
+			throws Exception {
+		int index = wsdlUrl.indexOf("?wsdl");
+		String address = wsdlUrl.substring(0, index);
+		return sendRequest(address, operation, params, wsdlUrl);
 	}
 
-	public <T> T invokeAt(String wsdlUrl, int index, SoapResponseHandler<T> handler) throws SoapUIException, SubmitException {
-		// wait for the response
-		Response response = this.invokeAt(wsdlUrl, index);
-		// handle response
-		return handler.handleResponse(response);
-	}
-	
-	public Response invokeByName(String wsdlUrl, String operationName) throws SoapUIException, SubmitException {
+	public Map<String, String> sendRequest(String address, String operation, Map<String, Object> params, String wsdlUrl)
+			throws Exception {
 		
-		// import amazon wsdl
-		WsdlInterface iface = this.importWsdl(wsdlUrl, true)[0];
 		
-		WsdlContext wsdlContext	= iface.getDefinitionContext();
+		RequestTransportRegistry.getTransport(endpoint, submitContext)
 		
-		// get desired operation
-		WsdlOperation operation = (WsdlOperation) iface.getOperationByName( operationName );
 		
-		// create a new empty request for that operation
-		WsdlRequest request = operation.addNewRequest( "My request" );
+		ExtendedPostMethod method = new ExtendedPostMethod(address);
 		
-		// generate the request content from the schema
-		request.setRequestContent( operation.createRequest( true ) );
+		HttpClientSupport.execute(method);
 		
-		WsdlSubmitContext context = new WsdlSubmitContext(request);
 		
-		context.put("", "127.0.0.1");
 		
-		// submit the request
-		WsdlSubmit<WsdlRequest> submit = request.submit( context, false );
+		
+		Operation operationInst = getOperation(wsdlUrl, operation, null);
 
-		// wait for the response
-		return submit.getResponse();
-		
+		String message = buildRequest(wsdlUrl, operationInst, params, null, null, null);
+
+		Map responseMap = populateResponseOgnlMap(sendRequest(address, message, operationInst.getAction()));
+
+		return responseMap;
 	}
 
-	public <T> T invokeByName(String wsdlUrl, String operationName, SoapResponseHandler<T> handler) throws SoapUIException, SubmitException {
-		// wait for the response
-		Response response = this.invokeByName(wsdlUrl, operationName);
-		// handle response
-		return handler.handleResponse(response);
+	private String sendRequest(String address, String message, String action) throws Exception {
+		PostMethod postMethod = new PostMethod(address);
+		String responseBodyAsString;
+		try {
+			postMethod.setRequestHeader("SOAPAction", action);
+			postMethod.setRequestEntity(
+					new InputStreamRequestEntity(new ByteArrayInputStream(message.getBytes("UTF-8")), "text/xml"));
+
+			this.client.executeMethod(postMethod);
+			responseBodyAsString = postMethod.getResponseBodyAsString();
+		} finally {
+			postMethod.releaseConnection();
+		}
+
+		return responseBodyAsString;
 	}
 	
 }

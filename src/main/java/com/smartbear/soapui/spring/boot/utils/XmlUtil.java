@@ -17,10 +17,17 @@ package com.smartbear.soapui.spring.boot.utils;
 
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.List;
+
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
@@ -104,5 +111,44 @@ public class XmlUtil {
 		short nodeType = node.getNodeType();
 
 		return ((nodeType == 4) || (nodeType == 3));
+	}
+	
+	public static void parseXML(String requestXml, List<String> inputType,
+			List<String> inputNames, List<String> outputType) throws DocumentException {
+		Document read = DocumentHelper.parseText(requestXml);
+		Element rootElement = read.getRootElement();
+		List<Element> elements = rootElement.elements();
+		for (Element element : elements) {
+			if ("Body".equals(element.getName())) {
+				// 方法
+				List<Element> elements2 = element.elements();
+				for (Element element2 : elements2) {
+					// 参数
+					parseParam(element2, 1, 1, inputType, inputNames, outputType);
+				}
+			}
+		}
+	}
+	
+	public static void parseParam(Element element2, int gen, int genParent, List<String> inputType,
+			List<String> inputNames, List<String> outputType) {
+		if (element2 != null) {
+			List<Element> elements3 = element2.elements();
+			if ((elements3 != null) && (elements3.size() != 0))
+				for (Element element : elements3) {
+					inputType.add(gen + "," + genParent);
+					inputNames.add(element.getQualifiedName());
+					if (element != null) {
+						List e = element.elements();
+						if ((e != null) && (e.size() != 0)) {
+							outputType.add("1");
+							int gen1 = gen + gen;
+							parseParam(element, gen1, gen, inputType, inputNames, outputType);
+						} else {
+							outputType.add("0");
+						}
+					}
+				}
+		}
 	}
 }

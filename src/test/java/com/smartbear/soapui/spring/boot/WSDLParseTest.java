@@ -15,9 +15,9 @@
  */
 package com.smartbear.soapui.spring.boot;
 
-import com.smartbear.soapui.spring.boot.wsdl.InterfaceInfo;
-import com.smartbear.soapui.spring.boot.wsdl.OperationInfo;
 import com.smartbear.soapui.spring.boot.wsdl.WsdlInfo;
+import com.smartbear.soapui.spring.boot.wsdl.WsdlInterfaceInfo;
+import com.smartbear.soapui.spring.boot.wsdl.WsdlOperationInfo;
 
 /**
  * 
@@ -36,16 +36,19 @@ import com.smartbear.soapui.spring.boot.wsdl.WsdlInfo;
 public class WSDLParseTest {
 	
 	public static void main(String[] args) throws Exception {
-		String url = "http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl";
-		WsdlInfo wsdlInfo = new WsdlInfo(url);
+        
+		String wsdlUrl = "http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl";
+		WsdlInfo wsdlInfo = new WsdlInfo(wsdlUrl);
 		System.out.println("WSDL URL is " + wsdlInfo.getWsdlUrl());
 
-		for (InterfaceInfo interfaceInfo : wsdlInfo.getInterfaces()) {
+		for (WsdlInterfaceInfo interfaceInfo : wsdlInfo.getInterfaces()) {
 			System.out.println("Interface name is " + interfaceInfo.getInterfaceName());
 			for (String ads : interfaceInfo.getAdrress()) {
 				System.out.println("Interface address is " + ads);
 			}
-			for (OperationInfo operation : interfaceInfo.getOperations()) {
+			for (WsdlOperationInfo operation : interfaceInfo.getOperations()) {
+				
+				
 				System.out.println("operation name is " + operation.getOperationName());
 				System.out.println("operation request is ");
 				System.out.println("operation request is " + operation.getRequestXml());

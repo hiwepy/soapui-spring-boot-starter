@@ -54,6 +54,11 @@ public class SoapuiProperties {
 	private boolean abortOnError;
 	
 	/**
+	 * Whether Create Requests
+	 */
+	private boolean createRequests = true;
+	
+	/**
 	 * Sets the Default Script Language
 	 */
 	private ScriptLanguage scriptLanguage = ScriptLanguage.GROOVY;
@@ -120,9 +125,26 @@ public class SoapuiProperties {
 	 *  The timeout of the project, default 30s
 	 */
 	private long timeout = 30 * 1000;
+	/**
+	 *  The Maximum Cache Size of the project, default 100
+	 */
+	private long maximumCacheSize = 100;
+	/**
+	 *  The Cache Duration of the project, default 60 minutes
+	 */
+	private long cacheDuration = 60;
 	
 	@NestedConfigurationProperty
 	private EnvironmentProperty env = new EnvironmentProperty();
+
+	
+	public boolean isCreateRequests() {
+		return createRequests;
+	}
+
+	public void setCreateRequests(boolean createRequests) {
+		this.createRequests = createRequests;
+	}
 
 	public boolean isAbortOnError() {
 		return abortOnError;
@@ -250,6 +272,22 @@ public class SoapuiProperties {
 
 	public void setTimeout(long timeout) {
 		this.timeout = timeout;
+	}
+
+	public long getMaximumCacheSize() {
+		return maximumCacheSize;
+	}
+
+	public void setMaximumCacheSize(long maximumCacheSize) {
+		this.maximumCacheSize = maximumCacheSize;
+	}
+
+	public long getCacheDuration() {
+		return cacheDuration;
+	}
+
+	public void setCacheDuration(long cacheDuration) {
+		this.cacheDuration = cacheDuration;
 	}
 
 	public EnvironmentProperty getEnv() {

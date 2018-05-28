@@ -17,6 +17,7 @@ import com.eviware.soapui.model.environment.DefaultEnvironment;
 import com.eviware.soapui.model.environment.Environment;
 import com.eviware.soapui.support.scripting.groovy.SoapUIGroovyScriptEngine;
 import com.eviware.soapui.support.scripting.js.JsScriptEngine;
+import com.smartbear.soapui.spring.boot.handler.SoapRequestHandler;
 import com.smartbear.soapui.spring.boot.property.EnvironmentProperty;
 
 @Configuration
@@ -104,6 +105,16 @@ public class SoapuiAutoConfiguration {
 		project.setTimeout(properties.getTimeout());
 		
 		return project;
+	}
+	
+	@Bean
+	public SoapuiWsdlTemplate wsdlTemplate(WsdlProject wsdlProject ,SoapuiProperties properties) throws Exception {
+		return new SoapuiWsdlTemplate(wsdlProject, properties);
+	}
+	
+	@Bean
+	public SoapuiRequestTemplate soapuiRequestTemplate(SoapuiWsdlTemplate wsdlTemplate , SoapRequestHandler requestHandler) throws Exception {
+		return new SoapuiRequestTemplate(wsdlTemplate, requestHandler);
 	}
 	
 }

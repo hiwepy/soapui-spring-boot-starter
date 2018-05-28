@@ -15,8 +15,13 @@
  */
 package com.smartbear.soapui.spring.boot;
 
-import java.util.concurrent.ExecutionException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.assertj.core.util.Lists;
 
 import com.eviware.soapui.impl.WsdlInterfaceFactory;
 import com.eviware.soapui.impl.wsdl.WsdlInterface;
@@ -25,14 +30,15 @@ import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.impl.wsdl.WsdlRequest;
 import com.eviware.soapui.impl.wsdl.WsdlSubmit;
 import com.eviware.soapui.impl.wsdl.WsdlSubmitContext;
-import com.eviware.soapui.impl.wsdl.support.wsdl.WsdlContext;
+import com.eviware.soapui.impl.wsdl.support.wsdl.UrlWsdlLoader;
+import com.eviware.soapui.impl.wsdl.support.wsdl.WsdlImporter;
+import com.eviware.soapui.model.iface.Operation;
 import com.eviware.soapui.model.iface.Request.SubmitException;
 import com.eviware.soapui.model.iface.Response;
 import com.eviware.soapui.support.SoapUIException;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.smartbear.soapui.spring.boot.handler.SoapResponseHandler;
 import com.smartbear.soapui.spring.boot.wsdl.WsdlInfo;
 
 /**
@@ -42,51 +48,106 @@ import com.smartbear.soapui.spring.boot.wsdl.WsdlInfo;
 public class SoapuiWsdlTemplate {
 
 	private WsdlProject project;
+	private boolean createRequests = true;
 	private LoadingCache<String, WsdlInterface[]> caches;
 	
-	public SoapuiWsdlTemplate(WsdlProject project) {
+	public SoapuiWsdlTemplate(WsdlProject project, SoapuiProperties properties) {
 		this.project = project;
+		this.createRequests = properties.isCreateRequests();
 		this.caches = CacheBuilder.newBuilder()
-				.maximumSize(100)
-				.refreshAfterWrite(10, TimeUnit.MINUTES)
+				.maximumSize(properties.getMaximumCacheSize())
+				.refreshAfterWrite(properties.getCacheDuration(), TimeUnit.MINUTES)
 				.build(new CacheLoader<String, WsdlInterface[]>() {
 					@Override
 					public WsdlInterface[] load(String wsdlUrl) throws Exception {
-						return WsdlInterfaceFactory.importWsdl(project, wsdlUrl, true );
+						//WsdlInterface[] wsdlInterfaces = WsdlImporter.importWsdl(project, wsdlUrl);
+						
+						UrlWsdlLoader loader = new UrlWsdlLoader(wsdlUrl, project);
+						return WsdlInterfaceFactory.importWsdl(project, wsdlUrl, createRequests, loader);
 					}
 				});
 	}
 
-	public WsdlInfo wsdlInfo(String wsdlUrl) throws Exception {
-		return new WsdlInfo(wsdlUrl);
+	public WsdlInfo getWsdlInfo(String wsdlUrl) throws SoapUIException {
+		return new WsdlInfo(wsdlUrl, this.getWsdlInterfaces(wsdlUrl));
 	}
 	
-	public WsdlInterface[] importWsdl(String wsdlUrl, boolean createRequests) throws SoapUIException {
+	public WsdlInterface[] getWsdlInterfaces(String wsdlUrl) throws SoapUIException {
 		try {
 			return caches.get(wsdlUrl);
-		} catch (ExecutionException e) {
-			// import amazon wsdl
-			return WsdlInterfaceFactory.importWsdl(project, wsdlUrl, createRequests );
+		} catch (Exception e) {
+			try {
+				// import wsdl
+				return WsdlImporter.importWsdl(project, wsdlUrl);
+			} catch (Exception cause) {
+				throw new SoapUIException("Failed to import WSDL '" + wsdlUrl + "'.", cause);
+			}
 		}
+	}
+	
+	public Map<String, Operation> getOperations(String wsdlUrl) throws SoapUIException {
+		Map<String, Operation> result = new HashMap<String, Operation>();
+		WsdlInterface[] wsdlInterfaces = getWsdlInterfaces(wsdlUrl);
+		for (WsdlInterface wsdlInterface : wsdlInterfaces) {
+			result.putAll(wsdlInterface.getOperations());
+		}
+		return result;
+	}
+	
+	public List<Operation> getOperationList(String wsdlUrl) throws SoapUIException {
+		List<Operation> operationList = Lists.newArrayList();
+		WsdlInterface[] wsdlInterfaces = getWsdlInterfaces(wsdlUrl);
+		for (WsdlInterface wsdlInterface : wsdlInterfaces) {
+			operationList.addAll(wsdlInterface.getOperationList());
+		}
+		return operationList;
+	}
+	
+	public WsdlOperation getOperationAt(String wsdlUrl, int index) throws SoapUIException {
+		WsdlInterface[] wsdlInterfaces = getWsdlInterfaces(wsdlUrl);
+		Operation operationInst;
+		for (WsdlInterface wsdlInterface : wsdlInterfaces) {
+			operationInst = wsdlInterface.getOperationAt(index);
+			if (operationInst != null) {
+				return (WsdlOperation) operationInst;
+			}
+		}
+		throw new UnsupportedOperationException("Operation not found by WSDL '" + wsdlUrl + "'.");
+	}
+
+	public WsdlOperation getOperationByName(String wsdlUrl, String operationName) throws SoapUIException {
+		WsdlInterface[] wsdlInterfaces = getWsdlInterfaces(wsdlUrl);
+		Operation operationInst;
+		for (WsdlInterface wsdlInterface : wsdlInterfaces) {
+			operationInst = wsdlInterface.getOperationByName(operationName);
+			if (operationInst != null) {
+				return (WsdlOperation) operationInst;
+			}
+		}
+		throw new UnsupportedOperationException(
+				"Operation '" + operationName + "' not supported by WSDL '" + wsdlUrl + "'.");
 	}
 	
 	public Response invokeAt(String wsdlUrl, int index) throws SoapUIException, SubmitException {
 		
-		// import amazon wsdl
-		WsdlInterface iface = this.importWsdl(wsdlUrl, true)[0];
-		
 		// get desired operation
-		WsdlOperation operation = (WsdlOperation) iface.getOperationAt(index);
+		WsdlOperation operation = this.getOperationAt(wsdlUrl ,index);
 		
 		// create a new empty request for that operation
-		WsdlRequest request = operation.addNewRequest( "My request" );
+		String requestName = "Request" + DigestUtils.md5Hex(wsdlUrl + "$operation-" + index);
+		WsdlRequest request = operation.getRequestByName(requestName);
+		if(null == request) {
+			request = operation.addNewRequest(requestName);
+		}
 		
 		// generate the request content from the schema
-		request.setRequestContent( operation.createRequest( true ) );
+		String requestXML = operation.createRequest( true );
+		
+		// 对 requestContent 进行动态补全
+		
+		request.setRequestContent( requestXML );
 		
 		WsdlSubmitContext context = new WsdlSubmitContext(request);
-		
-		context.put("", "127.0.0.1");
 		
 		// submit the request
 		WsdlSubmit<WsdlRequest> submit = request.submit( context, false );
@@ -95,33 +156,31 @@ public class SoapuiWsdlTemplate {
 		return submit.getResponse();
 		
 	}
-
-	public <T> T invokeAt(String wsdlUrl, int index, SoapResponseHandler<T> handler) throws SoapUIException, SubmitException {
-		// wait for the response
-		Response response = this.invokeAt(wsdlUrl, index);
-		// handle response
-		return handler.handleResponse(response);
-	}
-	
+		
 	public Response invokeByName(String wsdlUrl, String operationName) throws SoapUIException, SubmitException {
 		
-		// import amazon wsdl
-		WsdlInterface iface = this.importWsdl(wsdlUrl, true)[0];
-		
-		WsdlContext wsdlContext	= iface.getDefinitionContext();
-		
 		// get desired operation
-		WsdlOperation operation = (WsdlOperation) iface.getOperationByName( operationName );
+		WsdlOperation operation = this.getOperationByName(wsdlUrl, operationName);
 		
 		// create a new empty request for that operation
-		WsdlRequest request = operation.addNewRequest( "My request" );
+		String requestName = "Request" + DigestUtils.md5Hex(wsdlUrl + "$" + operationName);
+		WsdlRequest request = operation.getRequestByName(requestName);
+		if(null == request) {
+			request = operation.addNewRequest(requestName);
+		}
 		
+		//MessageExchange exchange = new WsdlResponseMessageExchange(request);
+        //MessageExchange exchange = new RestResponseMessageExchange(request);
+        //MessageExchange exchange = new HttpResponseMessageExchange(request);
+        
 		// generate the request content from the schema
-		request.setRequestContent( operation.createRequest( true ) );
+		String requestXML = operation.createRequest( true );
+		
+		// 对 requestContent 进行动态补全
+		
+		request.setRequestContent( requestXML );
 		
 		WsdlSubmitContext context = new WsdlSubmitContext(request);
-		
-		context.put("", "127.0.0.1");
 		
 		// submit the request
 		WsdlSubmit<WsdlRequest> submit = request.submit( context, false );
@@ -129,13 +188,6 @@ public class SoapuiWsdlTemplate {
 		// wait for the response
 		return submit.getResponse();
 		
-	}
-
-	public <T> T invokeByName(String wsdlUrl, String operationName, SoapResponseHandler<T> handler) throws SoapUIException, SubmitException {
-		// wait for the response
-		Response response = this.invokeByName(wsdlUrl, operationName);
-		// handle response
-		return handler.handleResponse(response);
 	}
 	
 }

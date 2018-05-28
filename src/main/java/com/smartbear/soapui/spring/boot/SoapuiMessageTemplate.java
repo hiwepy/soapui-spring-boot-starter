@@ -31,9 +31,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -50,55 +47,19 @@ import com.eviware.soapui.model.iface.Operation;
 import com.smartbear.soapui.spring.boot.utils.DOMUtil;
 import com.smartbear.soapui.spring.boot.utils.OGNLUtils;
 import com.smartbear.soapui.spring.boot.utils.XmlUtil;
-import com.smartbear.soapui.spring.boot.wsdl.ClientWsdlLoader;
+import com.smartbear.soapui.spring.boot.wsdl.RomoteWsdlLoader;
 
-public class SoapMessageTemplate {
+public class SoapuiMessageTemplate {
 
-	private static final Logger LOGGER = Logger.getLogger(SoapClient.class);
+	private static final Logger LOGGER = Logger.getLogger(SoapuiMessageTemplate.class);
 	private DocumentBuilderFactory docBuilderFactory;
-	private Map<String, WsdlInterface[]> wsdls = new LRULinkedHashMap(256);
-	private HttpClient client;
 
-	public SoapClient() {
+	public SoapuiMessageTemplate() {
 		this.docBuilderFactory = DocumentBuilderFactory.newInstance();
 		this.docBuilderFactory.setNamespaceAware(true);
-		this.client = HttpClientFactory.createHttpClient();
 	}
 
-	public Map<String, String> sendRequest(String operation, Map<String, Object> params, String wsdlUrl)
-			throws Exception {
-		int index = wsdlUrl.indexOf("?wsdl");
-		String address = wsdlUrl.substring(0, index);
-		return sendRequest(address, operation, params, wsdlUrl);
-	}
-
-	public Map<String, String> sendRequest(String address, String operation, Map<String, Object> params, String wsdlUrl)
-			throws Exception {
-		Operation operationInst = getOperation(wsdlUrl, operation, null);
-
-		String message = buildRequest(wsdlUrl, operationInst, params, null, null, null);
-
-		Map responseMap = populateResponseOgnlMap(sendRequest(address, message, operationInst.getAction()));
-
-		return responseMap;
-	}
-
-	private String sendRequest(String address, String message, String action) throws Exception {
-		PostMethod postMethod = new PostMethod(address);
-		String responseBodyAsString;
-		try {
-			postMethod.setRequestHeader("SOAPAction", action);
-			postMethod.setRequestEntity(
-					new InputStreamRequestEntity(new ByteArrayInputStream(message.getBytes("UTF-8")), "text/xml"));
-
-			this.client.executeMethod(postMethod);
-			responseBodyAsString = postMethod.getResponseBodyAsString();
-		} finally {
-			postMethod.releaseConnection();
-		}
-
-		return responseBodyAsString;
-	}
+	
 
 	private String buildRequest(String wsdl, Operation operationInst, Map<String, Object> params,
 			Properties httpClientProps, String smooksResource, String soapNs)
@@ -108,52 +69,7 @@ public class SoapMessageTemplate {
 		return buildSOAPMessage(requestTemplate, params, smooksResource, soapNs);
 	}
 
-	private Operation getOperation(String wsdl, String operation, Properties httpClientProps)
-			throws IOException, UnsupportedOperationException {
-		WsdlInterface[] wsdlInterfaces = getWsdlInterfaces(wsdl, httpClientProps);
-		Operation operationInst;
-		for (WsdlInterface wsdlInterface : wsdlInterfaces) {
-			operationInst = wsdlInterface.getOperationByName(operation);
-
-			if (operationInst != null) {
-				return operationInst;
-			}
-		}
-
-		this.wsdls.remove(wsdl);
-		wsdlInterfaces = getWsdlInterfaces(wsdl, httpClientProps);
-
-		for (WsdlInterface wsdlInterface : wsdlInterfaces) {
-			operationInst = wsdlInterface.getOperationByName(operation);
-
-			if (operationInst != null) {
-				return operationInst;
-			}
-		}
-
-		throw new UnsupportedOperationException("Operation '" + operation + "' not supported by WSDL '" + wsdl + "'.");
-	}
-
-	private WsdlInterface[] getWsdlInterfaces(String wsdl, Properties httpClientProps) throws IOException {
-		try {
-			WsdlInterface[] wsdlInterfaces = (WsdlInterface[]) this.wsdls.get(wsdl);
-			if (wsdlInterfaces == null) {
-				WsdlProject wsdlProject = new WsdlProject();
-				wsdlInterfaces = WsdlInterfaceFactory.importWsdl(wsdlProject, wsdl, true, createWsdlLoader(wsdl, httpClientProps));
-				this.wsdls.put(wsdl, wsdlInterfaces);
-			}
-			return wsdlInterfaces;
-		} catch (Exception e) {
-			IOException ioe = new IOException("Failed to import WSDL '" + wsdl + "'.");
-			ioe.initCause(e);
-			throw ioe;
-		}
-	}
-
-	private static WsdlLoader createWsdlLoader(String wsdl, Properties httpClientProps) throws ConfigurationException {
-		HttpClient httpClient = new HttpClient();
-		return new ClientWsdlLoader(wsdl, httpClient);
-	}
+	
 
 	private String buildSOAPMessage(String soapMessageTemplate, Map<String, Object> params, String smooksResource,
 			String soapNs) throws IOException, SAXException {

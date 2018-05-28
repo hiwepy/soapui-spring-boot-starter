@@ -21,38 +21,63 @@ import java.util.List;
 import com.eviware.soapui.impl.wsdl.WsdlInterface;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.impl.wsdl.support.wsdl.WsdlImporter;
+import com.eviware.soapui.support.SoapUIException;
 
 /**
- * WsdlInfo.java Create on 2013-5-4 下午12:56:14
- * 
- * 类功能说明: wsdl解析入口
- *
- * Copyright: Copyright(c) 2013 Company: COSHAHO
- * 
- * @Version 1.0
- * @Author 何科序
+ * @author 		： <a href="https://github.com/vindell">vindell</a>
  */
 public class WsdlInfo {
 
 	private String wsdlUrl;
 
-	private List<InterfaceInfo> interfaces;
+	private List<WsdlInterfaceInfo> interfaces;
 
+	public WsdlInfo(String wsdlUrl) throws SoapUIException {
+		try {
+			this.wsdlUrl = wsdlUrl;
+			// create new project
+			WsdlProject project = new WsdlProject();
+			WsdlInterface[] wsdlInterfaces = WsdlImporter.importWsdl(project, wsdlUrl);
+			if (null != wsdlInterfaces) {
+				List<WsdlInterfaceInfo> interfaces = new ArrayList<WsdlInterfaceInfo>();
+				for (WsdlInterface wsdlInterface : wsdlInterfaces) {
+					WsdlInterfaceInfo interfaceInfo = new WsdlInterfaceInfo(wsdlInterface);
+					interfaces.add(interfaceInfo);
+				}
+				this.interfaces = interfaces;
+			}
+		} catch (Exception e) {
+			throw new SoapUIException("Failed to import WSDL '" + wsdlUrl + "'.", e);
+		}
+	}
+
+	public WsdlInfo(String wsdlUrl, WsdlProject project) throws SoapUIException {
+		try {
+			this.wsdlUrl = wsdlUrl;
+			WsdlInterface[] wsdlInterfaces = WsdlImporter.importWsdl(project, wsdlUrl);
+			if (null != wsdlInterfaces) {
+				List<WsdlInterfaceInfo> interfaces = new ArrayList<WsdlInterfaceInfo>();
+				for (WsdlInterface wsdlInterface : wsdlInterfaces) {
+					WsdlInterfaceInfo interfaceInfo = new WsdlInterfaceInfo(wsdlInterface);
+					interfaces.add(interfaceInfo);
+				}
+				this.interfaces = interfaces;
+			}
+		} catch (Exception e) {
+			throw new SoapUIException("Failed to import WSDL '" + wsdlUrl + "'.", e);
+		}
+	}
+	
 	/**
-	 * coshaho
-	 * 
-	 * @param path
-	 *            wsdl地址
+	 * @param wsdlUrl wsdl地址
 	 * @throws Exception
 	 */
-	public WsdlInfo(String path) throws Exception {
-		WsdlProject project = new WsdlProject();
-		WsdlInterface[] wsdlInterfaces = WsdlImporter.importWsdl(project, path);
-		this.wsdlUrl = path;
+	public WsdlInfo(String wsdlUrl, WsdlInterface[] wsdlInterfaces) throws SoapUIException {
+		this.wsdlUrl = wsdlUrl;
 		if (null != wsdlInterfaces) {
-			List<InterfaceInfo> interfaces = new ArrayList<InterfaceInfo>();
+			List<WsdlInterfaceInfo> interfaces = new ArrayList<WsdlInterfaceInfo>();
 			for (WsdlInterface wsdlInterface : wsdlInterfaces) {
-				InterfaceInfo interfaceInfo = new InterfaceInfo(wsdlInterface);
+				WsdlInterfaceInfo interfaceInfo = new WsdlInterfaceInfo(wsdlInterface);
 				interfaces.add(interfaceInfo);
 			}
 			this.interfaces = interfaces;
@@ -67,11 +92,11 @@ public class WsdlInfo {
 		this.wsdlUrl = wsdlUrl;
 	}
 
-	public List<InterfaceInfo> getInterfaces() {
+	public List<WsdlInterfaceInfo> getInterfaces() {
 		return interfaces;
 	}
 
-	public void setInterfaces(List<InterfaceInfo> interfaces) {
+	public void setInterfaces(List<WsdlInterfaceInfo> interfaces) {
 		this.interfaces = interfaces;
 	}
 }

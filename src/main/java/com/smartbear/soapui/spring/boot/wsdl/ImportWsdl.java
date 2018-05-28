@@ -40,6 +40,7 @@ public class ImportWsdl {
 	
 	public static Map<String, HashMap<String, String>> result = new HashMap<String, HashMap<String, String>>();
 
+	@SuppressWarnings("unchecked")
 	public static List<WsdlMethodInfo> getProBySoap(String wsdlUrl) throws Exception {
 		
 		// 进行一次url有效性检查
@@ -70,20 +71,25 @@ public class ImportWsdl {
 				List inputType = new ArrayList();
 				List inputNames = new ArrayList();
 				List isparent = new ArrayList();
-				String next = "" + iterator.next();
-				HashMap hashMap = (HashMap) result.get(next);
-				Set keySet2 = hashMap.keySet();
-				Iterator iterator2 = keySet2.iterator();
+				// index
+				String index = "" + iterator.next();
+				
+				Map<String, Object> hashMap = (Map<String, Object>) result.get(index);
+				// method names
+				Set<String> keySet2 = hashMap.keySet();
+				Iterator<String> iterator2 = keySet2.iterator();
 				if (iterator2.hasNext()) {
-					String next2 = (String) iterator2.next();
-					String string = (String) hashMap.get(next2);
+					
+					String optname = (String) iterator2.next();
+					String requestXml = (String) hashMap.get(optname);
 					// 处理targetNameSpace
-					String qname = string.substring(string.lastIndexOf("\"http://") + 1, string.lastIndexOf("\">"));
+					String qname = requestXml.substring(requestXml.lastIndexOf("\"http://") + 1, requestXml.lastIndexOf("\">"));
 					info.setTargetNameSpace(qname);
 
 					String soap11 = "http://schemas.xmlsoap.org/soap/envelope";
 					String soap12 = "http://www.w3.org/2003/05/soap-envelope";
-					InputStreamReader is = new InputStreamReader(new ByteArrayInputStream(string.getBytes("utf-8")));
+					
+					InputStreamReader is = new InputStreamReader(new ByteArrayInputStream(requestXml.getBytes("utf-8")));
 					BufferedReader ibr = new BufferedReader(is);
 					String readLine = ibr.readLine();
 					if (readLine != null) {
@@ -96,15 +102,15 @@ public class ImportWsdl {
 					ibr.close();
 					is.close();
 
-					info.setMethodSoapAction(string);
+					info.setSoapAction(requestXml);
 
-					Document read = DocumentHelper.parseText(string);
+					Document read = DocumentHelper.parseText(requestXml);
 					Element rootElement = read.getRootElement();
 					List<Element> elements = rootElement.elements();
 					for (Element element : elements) {
 						if ("Body".equals(element.getName())) {
 							List<Element> elements2 = element.elements();
-							info.setMethodName(next2);
+							info.setMethodName(optname);
 							for (Element element2 : elements2) {
 								getParameter(element2, 1, 1, inputType, inputNames, isparent);
 								info.setInputNames(inputNames);

@@ -48,3 +48,16 @@
 ####Step 4 ：Deploy To Nexus Maven Repository
 
 > mvn deploy:deploy-file -DgroupId=com.eviware -DartifactId=soapui -Dversion=5.4.0 -Dpackaging=jar -Dfile=D:\soapui-5.4.0.jar -Durl=${repositoryUrl} -DrepositoryId=${repositoryId}
+
+com.eviware.soapui.impl.WsdlInterfaceFactory
+com.eviware.soapui.impl.wsdl.support.wsdl.CachedWsdlLoader
+com.eviware.soapui.impl.wsdl.support.wsdl.UrlWsdlLoader
+com.eviware.soapui.impl.wsdl.support.wsdl.WsdlImporter
+com.eviware.soapui.impl.wsdl.support.wsdl.WsdlUtils
+
+com.eviware.soapui.support.xml.XmlUtils
+com.eviware.soapui.support.JsonUtil
+com.eviware.soapui.support.SecurityScanUtil
+
+com.eviware.soapui.support.scripting.SoapUIScriptEngineRegistry
+

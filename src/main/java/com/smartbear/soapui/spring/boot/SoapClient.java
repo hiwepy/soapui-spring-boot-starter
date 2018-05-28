@@ -50,7 +50,7 @@ import com.eviware.soapui.model.iface.Operation;
 import com.smartbear.soapui.spring.boot.utils.DOMUtil;
 import com.smartbear.soapui.spring.boot.utils.OGNLUtils;
 import com.smartbear.soapui.spring.boot.utils.XmlUtil;
-import com.smartbear.soapui.spring.boot.wsdl.ClientWsdlLoader;
+import com.smartbear.soapui.spring.boot.wsdl.RomoteWsdlLoader;
 
 public class SoapClient {
 	
@@ -152,7 +152,7 @@ public class SoapClient {
 
 	private static WsdlLoader createWsdlLoader(String wsdl, Properties httpClientProps) throws ConfigurationException {
 		HttpClient httpClient = new HttpClient();
-		return new ClientWsdlLoader(wsdl, httpClient);
+		return new RomoteWsdlLoader(wsdl, httpClient);
 	}
 
 	private String buildSOAPMessage(String soapMessageTemplate, Map<String, Object> params, String smooksResource,

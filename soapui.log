@@ -1,62 +1,86 @@
-2018-05-28 18:05:37,960 WARN  [SoapUI] Missing folder [D:\workspaces\workspace-jeebiz\workspace-jeebiz-boot-starters\spring-boot-starter-soapui\ext] for external libraries
-2018-05-28 18:05:37,961 INFO  [DefaultSoapUICore] Creating new settings at [C:\Users\Administrator\soapui-settings.xml]
-2018-05-28 18:05:39,446 INFO  [PluginManager] 0 plugins loaded in 2 ms
-2018-05-28 18:05:39,446 INFO  [DefaultSoapUICore] All plugins loaded
-2018-05-28 18:05:39,861 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xop.xsd with targetNamespace http://www.w3.org/2004/08/xop/include
-2018-05-28 18:05:39,881 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/XMLSchema.xsd with targetNamespace http://www.w3.org/2001/XMLSchema
-2018-05-28 18:05:39,882 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xml.xsd with targetNamespace http://www.w3.org/XML/1998/namespace
-2018-05-28 18:05:39,883 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/swaref.xsd with targetNamespace http://ws-i.org/profiles/basic/1.1/xsd
-2018-05-28 18:05:39,884 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xmime200505.xsd with targetNamespace http://www.w3.org/2005/05/xmlmime
-2018-05-28 18:05:39,885 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xmime200411.xsd with targetNamespace http://www.w3.org/2004/11/xmlmime
-2018-05-28 18:05:39,887 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEnvelope.xsd with targetNamespace http://schemas.xmlsoap.org/soap/envelope/
-2018-05-28 18:05:39,890 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd with targetNamespace http://schemas.xmlsoap.org/soap/encoding/
-2018-05-28 18:05:39,891 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEnvelope12.xsd with targetNamespace http://www.w3.org/2003/05/soap-envelope
-2018-05-28 18:05:39,894 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd with targetNamespace http://www.w3.org/2003/05/soap-encoding
-2018-05-28 18:05:47,628 INFO  [SchemaUtils] Loading schema types from [http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl]
-2018-05-28 18:05:47,628 INFO  [SchemaUtils] Getting schema http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl
-2018-05-28 18:05:47,992 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ID' should only be used for attributes (used for element 'ID@http://www.w3.org/2003/05/soap-encoding').
-2018-05-28 18:05:47,992 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREF' should only be used for attributes (used for element 'IDREF@http://www.w3.org/2003/05/soap-encoding').
-2018-05-28 18:05:47,992 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITY' should only be used for attributes (used for element 'ENTITY@http://www.w3.org/2003/05/soap-encoding').
-2018-05-28 18:05:47,992 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREFS' should only be used for attributes (used for element 'IDREFS@http://www.w3.org/2003/05/soap-encoding').
-2018-05-28 18:05:47,992 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITIES' should only be used for attributes (used for element 'ENTITIES@http://www.w3.org/2003/05/soap-encoding').
-2018-05-28 18:05:47,992 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ID' should only be used for attributes (used for element 'ID@http://schemas.xmlsoap.org/soap/encoding/').
-2018-05-28 18:05:47,993 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREF' should only be used for attributes (used for element 'IDREF@http://schemas.xmlsoap.org/soap/encoding/').
-2018-05-28 18:05:47,993 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITY' should only be used for attributes (used for element 'ENTITY@http://schemas.xmlsoap.org/soap/encoding/').
-2018-05-28 18:05:47,993 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREFS' should only be used for attributes (used for element 'IDREFS@http://schemas.xmlsoap.org/soap/encoding/').
-2018-05-28 18:05:47,993 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITIES' should only be used for attributes (used for element 'ENTITIES@http://schemas.xmlsoap.org/soap/encoding/').
-2018-05-28 18:05:47,995 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceSoap12
-2018-05-28 18:05:47,997 INFO  [WsdlImporter] Importing binding {http://WebXml.com.cn/}WeatherWebServiceSoap12
-2018-05-28 18:05:48,011 INFO  [Soap12HttpBindingImporter] importing endpoint http://www.webxml.com.cn/WebServices/WeatherWebService.asmx
-2018-05-28 18:05:48,039 INFO  [Soap12HttpBindingImporter] importing operation getSupportCity
-2018-05-28 18:05:48,054 INFO  [Soap12HttpBindingImporter] importing operation getSupportDataSet
-2018-05-28 18:05:48,055 INFO  [Soap12HttpBindingImporter] importing operation getSupportProvince
-2018-05-28 18:05:48,055 INFO  [Soap12HttpBindingImporter] importing operation getWeatherbyCityName
-2018-05-28 18:05:48,056 INFO  [Soap12HttpBindingImporter] importing operation getWeatherbyCityNamePro
-2018-05-28 18:05:48,097 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceHttpGet
-2018-05-28 18:05:48,097 INFO  [WsdlImporter] Missing importer for {http://WebXml.com.cn/}WeatherWebServiceHttpGet
-2018-05-28 18:05:48,097 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceHttpPost
-2018-05-28 18:05:48,097 INFO  [WsdlImporter] Missing importer for {http://WebXml.com.cn/}WeatherWebServiceHttpPost
-2018-05-28 18:05:48,097 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceSoap
-2018-05-28 18:05:48,097 INFO  [WsdlImporter] Importing binding {http://WebXml.com.cn/}WeatherWebServiceSoap
-2018-05-28 18:05:48,098 INFO  [Soap11HttpBindingImporter] importing endpoint http://www.webxml.com.cn/WebServices/WeatherWebService.asmx
-2018-05-28 18:05:48,098 INFO  [Soap11HttpBindingImporter] importing operation getSupportCity
-2018-05-28 18:05:48,099 INFO  [Soap11HttpBindingImporter] importing operation getSupportDataSet
-2018-05-28 18:05:48,099 INFO  [Soap11HttpBindingImporter] importing operation getSupportProvince
-2018-05-28 18:05:48,100 INFO  [Soap11HttpBindingImporter] importing operation getWeatherbyCityName
-2018-05-28 18:05:48,100 INFO  [Soap11HttpBindingImporter] importing operation getWeatherbyCityNamePro
-2018-05-28 18:05:48,100 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceHttpPost
-2018-05-28 18:05:48,100 INFO  [WsdlImporter] Missing importer for {http://WebXml.com.cn/}WeatherWebServiceHttpPost
-2018-05-28 18:05:48,100 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceHttpGet
-2018-05-28 18:05:48,100 INFO  [WsdlImporter] Missing importer for {http://WebXml.com.cn/}WeatherWebServiceHttpGet
-2018-05-28 18:06:11,878 INFO  [SchemaUtils] Loading schema types from [http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl]
-2018-05-28 18:06:11,878 INFO  [SchemaUtils] Getting schema http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl
-2018-05-28 18:06:12,156 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ID' should only be used for attributes (used for element 'ID@http://www.w3.org/2003/05/soap-encoding').
-2018-05-28 18:06:12,156 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREF' should only be used for attributes (used for element 'IDREF@http://www.w3.org/2003/05/soap-encoding').
-2018-05-28 18:06:12,156 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITY' should only be used for attributes (used for element 'ENTITY@http://www.w3.org/2003/05/soap-encoding').
-2018-05-28 18:06:12,156 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREFS' should only be used for attributes (used for element 'IDREFS@http://www.w3.org/2003/05/soap-encoding').
-2018-05-28 18:06:12,156 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITIES' should only be used for attributes (used for element 'ENTITIES@http://www.w3.org/2003/05/soap-encoding').
-2018-05-28 18:06:12,156 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ID' should only be used for attributes (used for element 'ID@http://schemas.xmlsoap.org/soap/encoding/').
-2018-05-28 18:06:12,156 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREF' should only be used for attributes (used for element 'IDREF@http://schemas.xmlsoap.org/soap/encoding/').
-2018-05-28 18:06:12,156 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITY' should only be used for attributes (used for element 'ENTITY@http://schemas.xmlsoap.org/soap/encoding/').
-2018-05-28 18:06:12,156 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREFS' should only be used for attributes (used for element 'IDREFS@http://schemas.xmlsoap.org/soap/encoding/').
-2018-05-28 18:06:12,156 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITIES' should only be used for attributes (used for element 'ENTITIES@http://schemas.xmlsoap.org/soap/encoding/').
+2018-05-29 00:11:48,706 WARN  [SoapUI] Missing folder [D:\workspaces\workspace-jeebiz\workspace-jeebiz-boot-starters\spring-boot-starter-soapui\ext] for external libraries
+2018-05-29 00:11:48,707 INFO  [DefaultSoapUICore] Creating new settings at [C:\Users\Administrator\soapui-settings.xml]
+2018-05-29 00:11:50,029 INFO  [PluginManager] 0 plugins loaded in 1 ms
+2018-05-29 00:11:50,029 INFO  [DefaultSoapUICore] All plugins loaded
+2018-05-29 00:11:50,523 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xop.xsd with targetNamespace http://www.w3.org/2004/08/xop/include
+2018-05-29 00:11:50,539 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/XMLSchema.xsd with targetNamespace http://www.w3.org/2001/XMLSchema
+2018-05-29 00:11:50,540 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xml.xsd with targetNamespace http://www.w3.org/XML/1998/namespace
+2018-05-29 00:11:50,541 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/swaref.xsd with targetNamespace http://ws-i.org/profiles/basic/1.1/xsd
+2018-05-29 00:11:50,542 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xmime200505.xsd with targetNamespace http://www.w3.org/2005/05/xmlmime
+2018-05-29 00:11:50,543 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xmime200411.xsd with targetNamespace http://www.w3.org/2004/11/xmlmime
+2018-05-29 00:11:50,544 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEnvelope.xsd with targetNamespace http://schemas.xmlsoap.org/soap/envelope/
+2018-05-29 00:11:50,547 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd with targetNamespace http://schemas.xmlsoap.org/soap/encoding/
+2018-05-29 00:11:50,549 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEnvelope12.xsd with targetNamespace http://www.w3.org/2003/05/soap-envelope
+2018-05-29 00:11:50,553 INFO  [SchemaUtils] Added default schema from file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd with targetNamespace http://www.w3.org/2003/05/soap-encoding
+2018-05-29 00:11:51,168 INFO  [SchemaUtils] Loading schema types from [http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl]
+2018-05-29 00:11:51,168 INFO  [SchemaUtils] Getting schema http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl
+2018-05-29 00:11:51,307 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ID' should only be used for attributes (used for element 'ID@http://www.w3.org/2003/05/soap-encoding').
+2018-05-29 00:11:51,307 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREF' should only be used for attributes (used for element 'IDREF@http://www.w3.org/2003/05/soap-encoding').
+2018-05-29 00:11:51,307 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITY' should only be used for attributes (used for element 'ENTITY@http://www.w3.org/2003/05/soap-encoding').
+2018-05-29 00:11:51,307 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREFS' should only be used for attributes (used for element 'IDREFS@http://www.w3.org/2003/05/soap-encoding').
+2018-05-29 00:11:51,308 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITIES' should only be used for attributes (used for element 'ENTITIES@http://www.w3.org/2003/05/soap-encoding').
+2018-05-29 00:11:51,308 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ID' should only be used for attributes (used for element 'ID@http://schemas.xmlsoap.org/soap/encoding/').
+2018-05-29 00:11:51,308 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREF' should only be used for attributes (used for element 'IDREF@http://schemas.xmlsoap.org/soap/encoding/').
+2018-05-29 00:11:51,308 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITY' should only be used for attributes (used for element 'ENTITY@http://schemas.xmlsoap.org/soap/encoding/').
+2018-05-29 00:11:51,308 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREFS' should only be used for attributes (used for element 'IDREFS@http://schemas.xmlsoap.org/soap/encoding/').
+2018-05-29 00:11:51,308 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITIES' should only be used for attributes (used for element 'ENTITIES@http://schemas.xmlsoap.org/soap/encoding/').
+2018-05-29 00:11:51,311 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceSoap12
+2018-05-29 00:11:51,313 INFO  [WsdlImporter] Importing binding {http://WebXml.com.cn/}WeatherWebServiceSoap12
+2018-05-29 00:11:51,329 INFO  [Soap12HttpBindingImporter] importing endpoint http://www.webxml.com.cn/WebServices/WeatherWebService.asmx
+2018-05-29 00:11:51,356 INFO  [Soap12HttpBindingImporter] importing operation getSupportCity
+2018-05-29 00:11:51,369 INFO  [Soap12HttpBindingImporter] importing operation getSupportDataSet
+2018-05-29 00:11:51,369 INFO  [Soap12HttpBindingImporter] importing operation getSupportProvince
+2018-05-29 00:11:51,370 INFO  [Soap12HttpBindingImporter] importing operation getWeatherbyCityName
+2018-05-29 00:11:51,371 INFO  [Soap12HttpBindingImporter] importing operation getWeatherbyCityNamePro
+2018-05-29 00:11:51,407 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceHttpGet
+2018-05-29 00:11:51,407 INFO  [WsdlImporter] Missing importer for {http://WebXml.com.cn/}WeatherWebServiceHttpGet
+2018-05-29 00:11:51,407 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceHttpPost
+2018-05-29 00:11:51,407 INFO  [WsdlImporter] Missing importer for {http://WebXml.com.cn/}WeatherWebServiceHttpPost
+2018-05-29 00:11:51,407 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceSoap
+2018-05-29 00:11:51,407 INFO  [WsdlImporter] Importing binding {http://WebXml.com.cn/}WeatherWebServiceSoap
+2018-05-29 00:11:51,409 INFO  [Soap11HttpBindingImporter] importing endpoint http://www.webxml.com.cn/WebServices/WeatherWebService.asmx
+2018-05-29 00:11:51,409 INFO  [Soap11HttpBindingImporter] importing operation getSupportCity
+2018-05-29 00:11:51,409 INFO  [Soap11HttpBindingImporter] importing operation getSupportDataSet
+2018-05-29 00:11:51,410 INFO  [Soap11HttpBindingImporter] importing operation getSupportProvince
+2018-05-29 00:11:51,410 INFO  [Soap11HttpBindingImporter] importing operation getWeatherbyCityName
+2018-05-29 00:11:51,410 INFO  [Soap11HttpBindingImporter] importing operation getWeatherbyCityNamePro
+2018-05-29 00:11:51,410 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceHttpPost
+2018-05-29 00:11:51,411 INFO  [WsdlImporter] Missing importer for {http://WebXml.com.cn/}WeatherWebServiceHttpPost
+2018-05-29 00:11:51,411 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceHttpGet
+2018-05-29 00:11:51,411 INFO  [WsdlImporter] Missing importer for {http://WebXml.com.cn/}WeatherWebServiceHttpGet
+2018-05-29 00:11:51,524 INFO  [SchemaUtils] Loading schema types from [http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl]
+2018-05-29 00:11:51,524 INFO  [SchemaUtils] Getting schema http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl
+2018-05-29 00:11:51,591 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ID' should only be used for attributes (used for element 'ID@http://www.w3.org/2003/05/soap-encoding').
+2018-05-29 00:11:51,591 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREF' should only be used for attributes (used for element 'IDREF@http://www.w3.org/2003/05/soap-encoding').
+2018-05-29 00:11:51,591 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITY' should only be used for attributes (used for element 'ENTITY@http://www.w3.org/2003/05/soap-encoding').
+2018-05-29 00:11:51,591 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREFS' should only be used for attributes (used for element 'IDREFS@http://www.w3.org/2003/05/soap-encoding').
+2018-05-29 00:11:51,591 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITIES' should only be used for attributes (used for element 'ENTITIES@http://www.w3.org/2003/05/soap-encoding').
+2018-05-29 00:11:51,591 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ID' should only be used for attributes (used for element 'ID@http://schemas.xmlsoap.org/soap/encoding/').
+2018-05-29 00:11:51,591 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREF' should only be used for attributes (used for element 'IDREF@http://schemas.xmlsoap.org/soap/encoding/').
+2018-05-29 00:11:51,592 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITY' should only be used for attributes (used for element 'ENTITY@http://schemas.xmlsoap.org/soap/encoding/').
+2018-05-29 00:11:51,592 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'IDREFS' should only be used for attributes (used for element 'IDREFS@http://schemas.xmlsoap.org/soap/encoding/').
+2018-05-29 00:11:51,592 WARN  [SchemaUtils] Error: jar:file:/E:/Java/.m2/repository/com/eviware/soapui/5.4.0/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd:0: warning: id-idref-idrefs-entity-entities-notation: For compatibility, type 'ENTITIES' should only be used for attributes (used for element 'ENTITIES@http://schemas.xmlsoap.org/soap/encoding/').
+2018-05-29 00:11:51,593 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceSoap12
+2018-05-29 00:11:51,593 INFO  [WsdlImporter] Importing binding {http://WebXml.com.cn/}WeatherWebServiceSoap12
+2018-05-29 00:11:51,593 INFO  [Soap12HttpBindingImporter] importing endpoint http://www.webxml.com.cn/WebServices/WeatherWebService.asmx
+2018-05-29 00:11:51,594 INFO  [Soap12HttpBindingImporter] importing operation getSupportCity
+2018-05-29 00:11:51,595 INFO  [Soap12HttpBindingImporter] importing operation getSupportDataSet
+2018-05-29 00:11:51,595 INFO  [Soap12HttpBindingImporter] importing operation getSupportProvince
+2018-05-29 00:11:51,595 INFO  [Soap12HttpBindingImporter] importing operation getWeatherbyCityName
+2018-05-29 00:11:51,595 INFO  [Soap12HttpBindingImporter] importing operation getWeatherbyCityNamePro
+2018-05-29 00:11:51,596 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceHttpGet
+2018-05-29 00:11:51,596 INFO  [WsdlImporter] Missing importer for {http://WebXml.com.cn/}WeatherWebServiceHttpGet
+2018-05-29 00:11:51,596 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceHttpPost
+2018-05-29 00:11:51,596 INFO  [WsdlImporter] Missing importer for {http://WebXml.com.cn/}WeatherWebServiceHttpPost
+2018-05-29 00:11:51,596 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceSoap
+2018-05-29 00:11:51,596 INFO  [WsdlImporter] Importing binding {http://WebXml.com.cn/}WeatherWebServiceSoap
+2018-05-29 00:11:51,596 INFO  [Soap11HttpBindingImporter] importing endpoint http://www.webxml.com.cn/WebServices/WeatherWebService.asmx
+2018-05-29 00:11:51,597 INFO  [Soap11HttpBindingImporter] importing operation getSupportCity
+2018-05-29 00:11:51,598 INFO  [Soap11HttpBindingImporter] importing operation getSupportDataSet
+2018-05-29 00:11:51,598 INFO  [Soap11HttpBindingImporter] importing operation getSupportProvince
+2018-05-29 00:11:51,598 INFO  [Soap11HttpBindingImporter] importing operation getWeatherbyCityName
+2018-05-29 00:11:51,599 INFO  [Soap11HttpBindingImporter] importing operation getWeatherbyCityNamePro
+2018-05-29 00:11:51,599 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceHttpPost
+2018-05-29 00:11:51,599 INFO  [WsdlImporter] Missing importer for {http://WebXml.com.cn/}WeatherWebServiceHttpPost
+2018-05-29 00:11:51,599 INFO  [WsdlImporter] Finding importer for {http://WebXml.com.cn/}WeatherWebServiceHttpGet
+2018-05-29 00:11:51,599 INFO  [WsdlImporter] Missing importer for {http://WebXml.com.cn/}WeatherWebServiceHttpGet
