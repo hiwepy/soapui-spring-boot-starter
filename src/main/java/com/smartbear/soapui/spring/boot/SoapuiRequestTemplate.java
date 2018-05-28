@@ -18,7 +18,6 @@ package com.smartbear.soapui.spring.boot;
 import com.eviware.soapui.impl.WsdlInterfaceFactory;
 import com.eviware.soapui.impl.wsdl.WsdlInterface;
 import com.eviware.soapui.impl.wsdl.WsdlOperation;
-import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.impl.wsdl.WsdlRequest;
 import com.eviware.soapui.impl.wsdl.WsdlSubmit;
 import com.eviware.soapui.impl.wsdl.WsdlSubmitContext;
@@ -26,19 +25,22 @@ import com.eviware.soapui.impl.wsdl.support.wsdl.WsdlContext;
 import com.eviware.soapui.model.iface.Request.SubmitException;
 import com.eviware.soapui.model.iface.Response;
 import com.eviware.soapui.support.SoapUIException;
-import com.smartbear.soapui.spring.boot.handler.ResponseHandler;
+import com.smartbear.soapui.spring.boot.handler.SoapRequestHandler;
+import com.smartbear.soapui.spring.boot.handler.SoapResponseHandler;
 import com.smartbear.soapui.spring.boot.wsdl.WsdlInfo;
 
 /**
  * 
  * @author 		： <a href="https://github.com/vindell">vindell</a>
  */
-public class SoapUIRestTemplate {
+public class SoapuiRequestTemplate {
 
-	private WsdlProject project;
+	private SoapuiWsdlTemplate wsdlTemplate;
+	private SoapRequestHandler requestHandler;
 	
-	public SoapUIRestTemplate(WsdlProject project) {
-		this.project = project;
+	public SoapuiRequestTemplate(SoapuiWsdlTemplate wsdlTemplate, SoapRequestHandler requestHandler) {
+		this.wsdlTemplate = wsdlTemplate;
+		this.requestHandler = requestHandler;
 	}
 
 	public WsdlInfo wsdlInfo(String wsdlUrl) throws Exception {
@@ -76,7 +78,7 @@ public class SoapUIRestTemplate {
 		
 	}
 
-	public <T> T invokeAt(String wsdlUrl, int index, ResponseHandler<T> handler) throws SoapUIException, SubmitException {
+	public <T> T invokeAt(String wsdlUrl, int index, SoapResponseHandler<T> handler) throws SoapUIException, SubmitException {
 		// wait for the response
 		Response response = this.invokeAt(wsdlUrl, index);
 		// handle response
@@ -111,7 +113,7 @@ public class SoapUIRestTemplate {
 		
 	}
 
-	public <T> T invokeByName(String wsdlUrl, String operationName, ResponseHandler<T> handler) throws SoapUIException, SubmitException {
+	public <T> T invokeByName(String wsdlUrl, String operationName, SoapResponseHandler<T> handler) throws SoapUIException, SubmitException {
 		// wait for the response
 		Response response = this.invokeByName(wsdlUrl, operationName);
 		// handle response

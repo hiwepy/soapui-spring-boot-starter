@@ -15,6 +15,9 @@
  */
 package com.smartbear.soapui.spring.boot;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+
 import com.eviware.soapui.impl.WsdlInterfaceFactory;
 import com.eviware.soapui.impl.wsdl.WsdlInterface;
 import com.eviware.soapui.impl.wsdl.WsdlOperation;
@@ -26,19 +29,32 @@ import com.eviware.soapui.impl.wsdl.support.wsdl.WsdlContext;
 import com.eviware.soapui.model.iface.Request.SubmitException;
 import com.eviware.soapui.model.iface.Response;
 import com.eviware.soapui.support.SoapUIException;
-import com.smartbear.soapui.spring.boot.handler.ResponseHandler;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+import com.smartbear.soapui.spring.boot.handler.SoapResponseHandler;
 import com.smartbear.soapui.spring.boot.wsdl.WsdlInfo;
 
 /**
- * 
+ * https://www.soapui.org/developers-corner/integrating-with-soapui.html
  * @author 		： <a href="https://github.com/vindell">vindell</a>
  */
-public class SoapUIWsdlTemplate {
+public class SoapuiWsdlTemplate {
 
 	private WsdlProject project;
+	private LoadingCache<String, WsdlInterface[]> caches;
 	
-	public SoapUIWsdlTemplate(WsdlProject project) {
+	public SoapuiWsdlTemplate(WsdlProject project) {
 		this.project = project;
+		this.caches = CacheBuilder.newBuilder()
+				.maximumSize(100)
+				.refreshAfterWrite(10, TimeUnit.MINUTES)
+				.build(new CacheLoader<String, WsdlInterface[]>() {
+					@Override
+					public WsdlInterface[] load(String wsdlUrl) throws Exception {
+						return WsdlInterfaceFactory.importWsdl(project, wsdlUrl, true );
+					}
+				});
 	}
 
 	public WsdlInfo wsdlInfo(String wsdlUrl) throws Exception {
@@ -46,8 +62,12 @@ public class SoapUIWsdlTemplate {
 	}
 	
 	public WsdlInterface[] importWsdl(String wsdlUrl, boolean createRequests) throws SoapUIException {
-		// import amazon wsdl
-		return WsdlInterfaceFactory.importWsdl(project, wsdlUrl, createRequests );
+		try {
+			return caches.get(wsdlUrl);
+		} catch (ExecutionException e) {
+			// import amazon wsdl
+			return WsdlInterfaceFactory.importWsdl(project, wsdlUrl, createRequests );
+		}
 	}
 	
 	public Response invokeAt(String wsdlUrl, int index) throws SoapUIException, SubmitException {
@@ -76,7 +96,7 @@ public class SoapUIWsdlTemplate {
 		
 	}
 
-	public <T> T invokeAt(String wsdlUrl, int index, ResponseHandler<T> handler) throws SoapUIException, SubmitException {
+	public <T> T invokeAt(String wsdlUrl, int index, SoapResponseHandler<T> handler) throws SoapUIException, SubmitException {
 		// wait for the response
 		Response response = this.invokeAt(wsdlUrl, index);
 		// handle response
@@ -111,7 +131,7 @@ public class SoapUIWsdlTemplate {
 		
 	}
 
-	public <T> T invokeByName(String wsdlUrl, String operationName, ResponseHandler<T> handler) throws SoapUIException, SubmitException {
+	public <T> T invokeByName(String wsdlUrl, String operationName, SoapResponseHandler<T> handler) throws SoapUIException, SubmitException {
 		// wait for the response
 		Response response = this.invokeByName(wsdlUrl, operationName);
 		// handle response

@@ -21,10 +21,10 @@ import com.smartbear.soapui.spring.boot.property.EnvironmentProperty;
 
 @Configuration
 @AutoConfigureAfter(WebMvcAutoConfiguration.class)
-@EnableConfigurationProperties(SoapUIProperties.class)
-public class SoapUIAutoConfiguration {
+@EnableConfigurationProperties(SoapuiProperties.class)
+public class SoapuiAutoConfiguration {
 
-	private static final Logger logger = LoggerFactory.getLogger(SoapUIAutoConfiguration.class);
+	private static final Logger logger = LoggerFactory.getLogger(SoapuiAutoConfiguration.class);
 	
 	@Bean
 	public JsScriptEngine jsScriptEngine() throws Exception {
@@ -47,7 +47,7 @@ public class SoapUIAutoConfiguration {
 	}
 	
 	@Bean
-	public Environment environment(SoapUIProperties properties) throws Exception {
+	public Environment environment(SoapuiProperties properties) throws Exception {
 		Environment env = DefaultEnvironment.getInstance();
 		EnvironmentProperty envProperties = properties.getEnv();
 		env.setName(envProperties.getName());
@@ -61,7 +61,7 @@ public class SoapUIAutoConfiguration {
 	}
 	
 	@Bean
-	public WsdlProject wsdlProject(SoapUIProperties properties, Environment environment) throws Exception {
+	public WsdlProject wsdlProject(SoapuiProperties properties, Environment environment) throws Exception {
 		
 		// create new project
 		WsdlProject project = new WsdlProject();

@@ -42,7 +42,7 @@
 			<timezone>+8</timezone>
 		</developer>
 	</developers>
-	
+
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
@@ -50,12 +50,19 @@
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 		<repository>
-		    <id>ossrh</id>
+			<id>ossrh</id>
 			<name>Maven Central Staging Repository</name>
-		    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		  </repository>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
 	</distributionManagement>
-	
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>smartbear-sweden-plugin-repository</id>
+			<url>http://www.soapui.org/repository/maven2/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -172,7 +179,8 @@
 							每一个测试创建一个新进程，为每个测试创建新的JVM是单独测试的最彻底方式，但也是最慢的，不适合hudson上持续回归。 once：在一个进程中进行所有测试。once为默认设置，在Hudson上持续回归时建议使用默认设置。 
 							always：在一个进程中并行的运行脚本，Junit4.7以上版本才可以使用，surefire的版本要在2.6以上提供这个功能，其中 threadCount：执行时，指定可分配的线程数量。只和参数parallel配合使用有效。默认：5。 -->
 						<forkMode>once</forkMode>
-						<argLine>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m -Dfile.encoding=UTF-8</argLine>
+						<argLine>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m
+							-Dfile.encoding=UTF-8</argLine>
 						<additionalClasspathElements>
 							<additionalClasspathElement>${basedir}/target/test-classes</additionalClasspathElement>
 						</additionalClasspathElements>
@@ -286,9 +294,9 @@
 	<profiles>
 		<profile>
 			<id>disable-javadoc-doclint</id>
-				<activation>
-					<jdk>[1.8,)</jdk>
-				</activation>
+			<activation>
+				<jdk>[1.8,)</jdk>
+			</activation>
 			<properties>
 				<additionalparam>-Xdoclint:none</additionalparam>
 			</properties>
@@ -369,473 +377,33 @@
 		<bcmail.version>${bcprov.version}</bcmail.version>
 		<bcpg.version>${bcprov.version}</bcpg.version>
 		<bctls.version>${bcprov.version}</bctls.version>
+		<commons-logging.version>1.2</commons-logging.version>
+		<contiperf.version>2.3.4</contiperf.version>
+		<dom4j.version>2.1.0</dom4j.version>
+		<log4j.version>1.2.14</log4j.version>
+		<fife-common.version>2.6.3</fife-common.version>
+		<guava.version>25.1-jre</guava.version>
+		<junit.version>4.11</junit.version>
+		<reflections.version>0.9.11</reflections.version>
+		<rsyntaxtextarea.version>2.6.1</rsyntaxtextarea.version>
+		<saxon.version>9.1.0.8</saxon.version>
+		<soapui.version>5.4.0</soapui.version>
 		<maven.version>3.0</maven.version>
-       	<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
-        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-        <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
-        <maven-surefire-plugin.vertsion>2.21.0</maven-surefire-plugin.vertsion>
+		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+		<maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+		<maven-surefire-plugin.vertsion>2.21.0</maven-surefire-plugin.vertsion>
 		<maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
+		<wsdl4j.version>1.6.3</wsdl4j.version>
+		<wss4j.version>1.6.19</wss4j.version>
 		<xmlbeans.version>2.6.0</xmlbeans.version>
-		<fastjson.version>1.2.47</fastjson.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
 
-	        <!-- XML Beans : https://mvnrepository.com/artifact/org.apache.xmlbeans -->
-			<dependency>
-				<groupId>org.apache.xmlbeans</groupId>
-				<artifactId>xmlbeans</artifactId>
-				<version>${xmlbeans.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.xmlbeans</groupId>
-				<artifactId>xmlbeans-xpath</artifactId>
-				<version>${xmlbeans.version}</version>
-			</dependency>
-	        <dependency>
-				<groupId>org.apache.xmlbeans</groupId>
-				<artifactId>xmlbeans-xmlpublic</artifactId>
-				<version>${xmlbeans.version}</version>
-			</dependency>
-	        <dependency>
-	            <groupId>javax.xml.bind</groupId>
-	            <artifactId>jsr173_api</artifactId>
-	            <version>1.0</version>
-	        </dependency>
-	        
-	        <!-- Static analytics -->
-
-	        <dependency>
-	            <groupId>com.google.code.findbugs</groupId>
-	            <artifactId>annotations</artifactId>
-	            <version>2.0.0</version>
-	            <scope>provided</scope>
-	        </dependency>
-	        <dependency>
-	            <groupId>com.google.code.findbugs</groupId>
-	            <artifactId>jsr305</artifactId>
-	            <version>2.0.0</version>
-	            <scope>provided</scope>
-	        </dependency>
-	
-	        <!-- Global utils -->
-	
-	        <dependency>
-	            <groupId>com.google.guava</groupId>
-	            <artifactId>guava</artifactId>
-	            <version>25.0-jre</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>commons-collections</groupId>
-	            <artifactId>commons-collections</artifactId>
-	            <version>3.2.2</version>
-	        </dependency>
-	        <!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
-			<dependency>
-			    <groupId>commons-cli</groupId>
-			    <artifactId>commons-cli</artifactId>
-			    <version>1.4</version>
-			</dependency>
-	        <dependency>
-	            <groupId>commons-lang</groupId>
-	            <artifactId>commons-lang</artifactId>
-	            <version>2.6</version>
-	        </dependency>
-	        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-	        <dependency>
-	            <groupId>commons-io</groupId>
-	            <artifactId>commons-io</artifactId>
-	            <version>2.6</version>
-	        </dependency>
-	
-	        <!-- Logging -->
-	
-	        <dependency>
-	            <groupId>log4j</groupId>
-	            <artifactId>log4j</artifactId>
-	            <version>1.2.14</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>commons-logging</groupId>
-	            <artifactId>commons-logging</artifactId>
-	            <version>1.1.1</version>
-	        </dependency>
-	
-	        <!-- In-app analytics -->
-	        <dependency>
-	            <groupId>com.smartbear.utils.analytics</groupId>
-	            <artifactId>analytics-core</artifactId>
-	            <version>5.4.0</version>
-	        </dependency>
-	
-	        <dependency>
-	            <groupId>com.smartbear.utils.analytics</groupId>
-	            <artifactId>out-app-analytics-provider</artifactId>
-	            <version>5.4.0</version>
-	        </dependency>
-	
-	        <!-- JGoodies -->
-	
-	        <dependency>
-	            <groupId>com.jgoodies</groupId>
-	            <artifactId>forms</artifactId>
-	            <version>1.0.7</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>com.jgoodies</groupId>
-	            <artifactId>looks</artifactId>
-	            <version>2.2.0</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>com.jgoodies</groupId>
-	            <artifactId>binding</artifactId>
-	            <version>2.0.1</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>com.fifesoft</groupId>
-	            <artifactId>rsyntaxtextarea</artifactId>
-	            <version>2.5.0</version>
-	        </dependency>
-	
-	        <!-- Jetty -->
-	
-	        <dependency>
-	            <groupId>jetty</groupId>
-	            <artifactId>jetty</artifactId>
-	            <version>6.1.26</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>jetty</groupId>
-	            <artifactId>jetty-util</artifactId>
-	            <version>6.1.26</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>jetty</groupId>
-	            <artifactId>servlet-api</artifactId>
-	            <version>2.5-20081211</version>
-	        </dependency>
-	
-	
-	        <!-- WSS4J -->
-	
-	        <dependency>
-	            <groupId>org.apache.ws.security</groupId>
-	            <artifactId>wss4j</artifactId>
-	            <version>1.6.16</version>
-	        </dependency>
-	
-	        <!-- HtmlUnit dependencies -->
-	
-	        <dependency>
-	            <groupId>net.sourceforge.htmlunit</groupId>
-	            <artifactId>htmlunit</artifactId>
-	            <version>2.7</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.w3c.css</groupId>
-	            <artifactId>sac</artifactId>
-	            <version>1.3</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>net.sourceforge.htmlunit</groupId>
-	            <artifactId>htmlunit-core-js</artifactId>
-	            <version>2.7</version>
-	        </dependency>
-	
-	        <!-- HTTP Components -->
-	
-	        <dependency>
-	            <groupId>org.apache.httpcomponents</groupId>
-	            <artifactId>httpclient</artifactId>
-	            <version>4.1.1</version>
-	            <type>jar</type>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.apache.httpcomponents</groupId>
-	            <artifactId>httpmime</artifactId>
-	            <version>4.1.1</version>
-	            <type>jar</type>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.apache.httpcomponents</groupId>
-	            <artifactId>httpclient-cache</artifactId>
-	            <version>4.1.1</version>
-	            <type>jar</type>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.apache.httpcomponents</groupId>
-	            <artifactId>httpcore</artifactId>
-	            <version>4.1.1</version>
-	            <type>jar</type>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.apache.httpcomponents</groupId>
-	            <artifactId>httpcore-nio</artifactId>
-	            <version>4.1.1</version>
-	            <type>jar</type>
-	        </dependency>
-	
-	        <!-- Oauth2 dependencies -->
-	        <dependency>
-	            <groupId>org.apache.oltu.oauth2</groupId>
-	            <artifactId>org.apache.oltu.oauth2.client</artifactId>
-	            <version>0.31</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.apache.oltu.oauth2</groupId>
-	            <artifactId>org.apache.oltu.oauth2.httpclient4</artifactId>
-	            <version>0.31</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>com.google.oauth-client</groupId>
-	            <artifactId>google-oauth-client</artifactId>
-	            <version>1.21.0</version>
-	        </dependency>
-	
-	        <!--              -->
-	
-	        <dependency>
-	            <groupId>org.apache.maven</groupId>
-	            <artifactId>maven-plugin-api</artifactId>
-	            <version>2.0</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>javax.activation</groupId>
-	            <artifactId>activation</artifactId>
-	            <version>1.1</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>javax.mail</groupId>
-	            <artifactId>mail</artifactId>
-	            <version>1.4</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>wsdl4j</groupId>
-	            <artifactId>wsdl4j</artifactId>
-	            <version>1.6.2-fixed</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>commons-ssl</groupId>
-	            <artifactId>not-yet-commons-ssl</artifactId>
-	            <version>0.3.11</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>commons-cli</groupId>
-	            <artifactId>commons-cli</artifactId>
-	            <version>1.2</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>commons-beanutils</groupId>
-	            <artifactId>commons-beanutils</artifactId>
-	            <version>1.7.0</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>json</groupId>
-	            <artifactId>json-lib</artifactId>
-	            <version>2.2.2-jdk15</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>ezmorph</groupId>
-	            <artifactId>ezmorph</artifactId>
-	            <version>1.0.5</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>xom</groupId>
-	            <artifactId>xom</artifactId>
-	            <version>1.1</version>
-	            <exclusions>
-	                <exclusion>
-	                    <artifactId>xercesImpl</artifactId>
-	                    <groupId>xerces</groupId>
-	                </exclusion>
-	            </exclusions>
-	        </dependency>
-	        <dependency>
-	            <groupId>swingx</groupId>
-	            <artifactId>swingx</artifactId>
-	            <version>soapui</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>commons-codec</groupId>
-	            <artifactId>commons-codec</artifactId>
-	            <version>1.3</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.codehaus.groovy</groupId>
-	            <artifactId>groovy-all</artifactId>
-	            <version>2.4.4</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>rhino</groupId>
-	            <artifactId>js</artifactId>
-	            <version>1.7R2</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>saxon</groupId>
-	            <artifactId>saxon</artifactId>
-	            <version>9.1.0.8j</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>saxon</groupId>
-	            <artifactId>saxon-dom</artifactId>
-	            <version>9.1.0.8j</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>xmlunit</groupId>
-	            <artifactId>xmlunit</artifactId>
-	            <version>1.2</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>xalan</groupId>
-	            <artifactId>xalan</artifactId>
-	            <version>2.7.1</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>bouncycastle</groupId>
-	            <artifactId>bcprov-jdk15</artifactId>
-	            <version>144</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>jtidy</groupId>
-	            <artifactId>jtidy</artifactId>
-	            <version>r872-jdk15</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>javax.jms</groupId>
-	            <artifactId>jms</artifactId>
-	            <version>1.1</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>hermesjms</groupId>
-	            <artifactId>hermes</artifactId>
-	            <version>1.14</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>amf</groupId>
-	            <artifactId>flex-messaging-common</artifactId>
-	            <version>1.0</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>amf</groupId>
-	            <artifactId>flex-messaging-core</artifactId>
-	            <version>1.0</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>amf</groupId>
-	            <artifactId>flex-messaging-opt</artifactId>
-	            <version>1.0</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>amf</groupId>
-	            <artifactId>flex-messaging-proxy</artifactId>
-	            <version>1.0</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>amf</groupId>
-	            <artifactId>flex-messaging-remoting</artifactId>
-	            <version>1.0</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>thoughtworks</groupId>
-	            <artifactId>xstream</artifactId>
-	            <version>1.3.1</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>net.sourceforge.cssparser</groupId>
-	            <artifactId>cssparser</artifactId>
-	            <version>0.9.5</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>net.sourceforge.nekohtml</groupId>
-	            <artifactId>nekohtml</artifactId>
-	            <version>1.9.14</version>
-	        </dependency>
-	
-	        <!--- Added -->
-	
-	        <dependency>
-	            <groupId>org.samba.jcifs</groupId>
-	            <artifactId>jcifs</artifactId>
-	            <version>1.2.9</version>
-	            <type>jar</type>
-	        </dependency>
-	        <!-- https://mvnrepository.com/artifact/com.l2fprod.common/l2fprod-common-directorychooser -->
-			<dependency>
-			    <groupId>com.l2fprod.common</groupId>
-			    <artifactId>l2fprod-common-directorychooser</artifactId>
-			    <version>6.9.1</version>
-			</dependency>
-	        <!-- https://mvnrepository.com/artifact/com.l2fprod.common/l2fprod-common-fontchooser -->
-			<dependency>
-			    <groupId>com.l2fprod.common</groupId>
-			    <artifactId>l2fprod-common-fontchooser</artifactId>
-			    <version>6.9.1</version>
-			</dependency>
-	        <dependency>
-	            <groupId>org.apache.santuario</groupId>
-	            <artifactId>xmlsec</artifactId>
-	            <version>1.4.5</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.apache.xerces</groupId>
-	            <artifactId>xml-apis</artifactId>
-	            <version>2.9.1</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>xalan</groupId>
-	            <artifactId>serializer</artifactId>
-	            <version>2.7.1</version>
-	            <type>jar</type>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.apache.ws.commons.util</groupId>
-	            <artifactId>ws-commons-util</artifactId>
-	            <version>1.0.2</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>com.btr</groupId>
-	            <artifactId>proxy-vole</artifactId>
-	            <version>20131209</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>com.jayway.jsonpath</groupId>
-	            <artifactId>json-path</artifactId>
-	            <version>0.9.1</version>
-	        </dependency>
-	
-	        <!--  old http client needed by some 3rd party components -->
-	
-	        <dependency>
-	            <groupId>commons-httpclient</groupId>
-	            <artifactId>commons-httpclient</artifactId>
-	            <version>3.1</version>
-	        </dependency>
-	
-	        <dependency>
-	            <groupId>org.sonatype.install4j</groupId>
-	            <artifactId>i4jruntime</artifactId>
-	            <version>5.1.14</version>
-	        </dependency>
-	
-	
-	        <dependency>
-	            <groupId>org.codehaus.mojo</groupId>
-	            <artifactId>animal-sniffer-annotations</artifactId>
-	            <version>1.11</version>
-	            <scope>compile</scope>
-	        </dependency>
-	
-			<!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
-	        <!-- Plugin Framework-->
-	        <dependency>
-	            <groupId>org.reflections</groupId>
-	            <artifactId>reflections</artifactId>
-	            <version>0.9.11</version>
-	        </dependency>
-	        
-	        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
+			<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
 			<!-- The Bouncy Castle Crypto package is a Java implementation of cryptographic 
 				algorithms. This jar contains JCE provider and lightweight API for the Bouncy 
 				Castle Cryptography APIs for JDK 1.5 to JDK 1.8. -->
@@ -855,21 +423,210 @@
 				<version>${bcprov.version}</version>
 			</dependency>
 
+			<!-- https://mvnrepository.com/artifact/org.databene/contiperf -->
+			<dependency>
+				<groupId>org.databene</groupId>
+				<artifactId>contiperf</artifactId>
+				<version>${contiperf.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-collections</groupId>
+				<artifactId>commons-collections</artifactId>
+				<version>3.2.2</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
+			<dependency>
+				<groupId>commons-cli</groupId>
+				<artifactId>commons-cli</artifactId>
+				<version>1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>1.11</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>2.6</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.6</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.apache.commons/not-yet-commons-ssl -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>not-yet-commons-ssl</artifactId>
+				<version>0.3.9</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>1.7.0</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
+			<dependency>
+				<groupId>org.dom4j</groupId>
+				<artifactId>dom4j</artifactId>
+				<version>${dom4j.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.fifesoft.rtext/fife.common -->
+			<dependency>
+				<groupId>com.fifesoft.rtext</groupId>
+				<artifactId>fife.common</artifactId>
+				<version>${fife-common.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.activation</groupId>
+				<artifactId>activation</artifactId>
+				<version>1.1</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.jms</groupId>
+				<artifactId>jms</artifactId>
+				<version>1.1</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.btr/proxy-vole -->
+			<dependency>
+				<groupId>com.btr</groupId>
+				<artifactId>proxy-vole</artifactId>
+				<version>20121203</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
+			<!-- Plugin Framework -->
+			<dependency>
+				<groupId>org.reflections</groupId>
+				<artifactId>reflections</artifactId>
+				<version>${reflections.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.fifesoft/rsyntaxtextarea -->
+			<dependency>
+				<groupId>com.fifesoft</groupId>
+				<artifactId>rsyntaxtextarea</artifactId>
+				<version>${rsyntaxtextarea.version}</version>
+			</dependency>
+
+			<!-- https://github.com/SmartBear/soapui -->
+			<dependency>
+				<groupId>com.eviware</groupId>
+				<artifactId>soapui</artifactId>
+				<version>${soapui.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>wsdl4j</groupId>
+				<artifactId>wsdl4j</artifactId>
+				<version>${wsdl4j.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.apache.ws.security/wss4j -->
+			<dependency>
+				<groupId>org.apache.ws.security</groupId>
+				<artifactId>wss4j</artifactId>
+				<version>${wss4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.ws.commons.util</groupId>
+				<artifactId>ws-commons-util</artifactId>
+				<version>1.0.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>xalan</groupId>
+				<artifactId>xalan</artifactId>
+				<version>2.7.1</version>
+			</dependency>
+
+			<!-- XML Beans : https://mvnrepository.com/artifact/org.apache.xmlbeans -->
+			<dependency>
+				<groupId>org.apache.xmlbeans</groupId>
+				<artifactId>xmlbeans</artifactId>
+				<version>${xmlbeans.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlbeans</groupId>
+				<artifactId>xmlbeans-xpath</artifactId>
+				<version>${xmlbeans.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlbeans</groupId>
+				<artifactId>xmlbeans-xmlpublic</artifactId>
+				<version>${xmlbeans.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jsr173_api</artifactId>
+				<version>1.0</version>
+			</dependency>
+
+			<!-- Logging -->
+
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4j.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>${commons-logging.version}</version>
+			</dependency>
+
+			<!-- In-app analytics -->
+			<dependency>
+				<groupId>com.smartbear.utils.analytics</groupId>
+				<artifactId>analytics-core</artifactId>
+				<version>5.4.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.smartbear.utils.analytics</groupId>
+				<artifactId>out-app-analytics-provider</artifactId>
+				<version>5.4.0</version>
+			</dependency>
+			
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
 
 		<dependency>
+			<groupId>org.databene</groupId>
+			<artifactId>contiperf</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-simple</artifactId>
-		    <scope>test</scope>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- Core starter, including auto-configuration support, logging and YAML -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -898,32 +655,122 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-autoconfigure</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/wsdl4j/wsdl4j -->
+
+		<!-- SoapUI dependencies -->
+
 		<dependency>
-		    <groupId>wsdl4j</groupId>
-		    <artifactId>wsdl4j</artifactId>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
 		</dependency>
-		  
-		<!-- https://mvnrepository.com/artifact/com.fifesoft.rtext/fife.common -->
+
 		<dependency>
-		    <groupId>com.fifesoft.rtext</groupId>
-		    <artifactId>fife.common</artifactId>
-		    <version>2.6.3</version>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy -->
 		<dependency>
-		    <groupId>org.codehaus.groovy</groupId>
-		    <artifactId>groovy</artifactId>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
 		</dependency>
-		 
-		<!-- https://mvnrepository.com/artifact/com.github.redfish4ktc.soapui/soapui -->
 		<dependency>
-		    <groupId>com.eviware</groupId>
-		    <artifactId>soapui</artifactId>
-		    <version>5.4.0</version>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>not-yet-commons-ssl</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fifesoft.rtext</groupId>
+			<artifactId>fife.common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.jms</groupId>
+			<artifactId>jms</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.btr</groupId>
+			<artifactId>proxy-vole</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fifesoft</groupId>
+			<artifactId>rsyntaxtextarea</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sourceforge.saxon</groupId>
+			<artifactId>saxon</artifactId>
+			<version>${saxon.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.eviware</groupId>
+			<artifactId>soapui</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ws.security</groupId>
+			<artifactId>wss4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ws.commons.util</groupId>
+			<artifactId>ws-commons-util</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.xmlbeans</groupId>
 			<artifactId>xmlbeans</artifactId>
@@ -939,390 +786,61 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-		    <groupId>net.sourceforge.saxon</groupId>
-		    <artifactId>saxon</artifactId>
-		    <version>9.1.0.8</version>
-		</dependency>
-        <dependency>
 			<groupId>org.apache.xmlbeans</groupId>
 			<artifactId>xmlbeans-xmlpublic</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jsr173_api</artifactId>
-        </dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-lang3</artifactId>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jsr173_api</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
+
+		<!-- Logging -->
+
 		<dependency>
-		    <groupId>org.dom4j</groupId>
-		    <artifactId>dom4j</artifactId>
-		    <version>2.1.0</version>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
 		</dependency>
-		
-		
-		<!-- Static analytics -->
 
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>annotations</artifactId>
-            <version>2.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>2.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Global utils -->
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-
-
-        <!-- Logging -->
-
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-        </dependency>
-
-        <!-- In-app analytics -->
-        <dependency>
-            <groupId>com.smartbear.utils.analytics</groupId>
-            <artifactId>analytics-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.smartbear.utils.analytics</groupId>
-            <artifactId>out-app-analytics-provider</artifactId>
-        </dependency>
-
-        <!-- JGoodies -->
-
-        <dependency>
-            <groupId>com.jgoodies</groupId>
-            <artifactId>forms</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.jgoodies</groupId>
-            <artifactId>looks</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.jgoodies</groupId>
-            <artifactId>binding</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fifesoft</groupId>
-            <artifactId>rsyntaxtextarea</artifactId>
-        </dependency>
-
-        <!-- Jetty -->
-
-        <dependency>
-            <groupId>jetty</groupId>
-            <artifactId>jetty</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jetty</groupId>
-            <artifactId>jetty-util</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jetty</groupId>
-            <artifactId>servlet-api</artifactId>
-        </dependency>
-
-
-        <!-- WSS4J -->
-
-        <dependency>
-            <groupId>org.apache.ws.security</groupId>
-            <artifactId>wss4j</artifactId>
-        </dependency>
-
-        <!-- HtmlUnit dependencies -->
-
-        <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
-            <artifactId>htmlunit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.w3c.css</groupId>
-            <artifactId>sac</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
-            <artifactId>htmlunit-core-js</artifactId>
-        </dependency>
-
-        <!-- HTTP Components -->
-
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpmime</artifactId>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient-cache</artifactId>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore-nio</artifactId>
-            <type>jar</type>
-        </dependency>
-
-        <!-- Oauth2 dependencies -->
-        <dependency>
-            <groupId>org.apache.oltu.oauth2</groupId>
-            <artifactId>org.apache.oltu.oauth2.client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.oltu.oauth2</groupId>
-            <artifactId>org.apache.oltu.oauth2.httpclient4</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.oauth-client</groupId>
-            <artifactId>google-oauth-client</artifactId>
-        </dependency>
-
-        <!--              -->
-
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-plugin-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>wsdl4j</groupId>
-            <artifactId>wsdl4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-ssl</groupId>
-            <artifactId>not-yet-commons-ssl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-cli</groupId>
-            <artifactId>commons-cli</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>json</groupId>
-            <artifactId>json-lib</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ezmorph</groupId>
-            <artifactId>ezmorph</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>xom</groupId>
-            <artifactId>xom</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>xercesImpl</artifactId>
-                    <groupId>xerces</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>swingx</groupId>
-            <artifactId>swingx</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>rhino</groupId>
-            <artifactId>js</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>saxon</groupId>
-            <artifactId>saxon</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>saxon</groupId>
-            <artifactId>saxon-dom</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>xmlunit</groupId>
-            <artifactId>xmlunit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-        </dependency>
-       	<dependency>
-			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcprov-jdk15on</artifactId>
-		</dependency>
-        <dependency>
-            <groupId>jtidy</groupId>
-            <artifactId>jtidy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.jms</groupId>
-            <artifactId>jms</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>hermesjms</groupId>
-            <artifactId>hermes</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>amf</groupId>
-            <artifactId>flex-messaging-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>amf</groupId>
-            <artifactId>flex-messaging-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>amf</groupId>
-            <artifactId>flex-messaging-opt</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>amf</groupId>
-            <artifactId>flex-messaging-proxy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>amf</groupId>
-            <artifactId>flex-messaging-remoting</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>thoughtworks</groupId>
-            <artifactId>xstream</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.cssparser</groupId>
-            <artifactId>cssparser</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.nekohtml</groupId>
-            <artifactId>nekohtml</artifactId>
-        </dependency>
-
-        <!--- Added -->
-
-        <dependency>
-            <groupId>org.samba.jcifs</groupId>
-            <artifactId>jcifs</artifactId>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.l2fprod.common</groupId>
-            <artifactId>l2fprod-common-directorychooser</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.l2fprod.common</groupId>
-            <artifactId>l2fprod-common-fontchooser</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.santuario</groupId>
-            <artifactId>xmlsec</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.xerces</groupId>
-            <artifactId>xml-apis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>serializer</artifactId>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ws.commons.util</groupId>
-            <artifactId>ws-commons-util</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.btr</groupId>
-            <artifactId>proxy-vole</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-        </dependency>
-
-        <!--  old http client needed by some 3rd party components -->
-
-        <dependency>
-            <groupId>commons-httpclient</groupId>
-            <artifactId>commons-httpclient</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.sonatype.install4j</groupId>
-            <artifactId>i4jruntime</artifactId>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>animal-sniffer-annotations</artifactId>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- Plugin Framework-->
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-        </dependency>
-        
-        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<!-- In-app analytics -->
 		<dependency>
-		    <groupId>com.alibaba</groupId>
-		    <artifactId>fastjson</artifactId>
-		    <version>${fastjson.version}</version>
+			<groupId>com.smartbear.utils.analytics</groupId>
+			<artifactId>analytics-core</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-				
+
+		<dependency>
+			<groupId>com.smartbear.utils.analytics</groupId>
+			<artifactId>out-app-analytics-provider</artifactId>
+		</dependency>
+
+		<!-- HTTP Components -->
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient-cache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore-nio</artifactId>
+		</dependency>
+
 	</dependencies>
 
 </project>

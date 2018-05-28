@@ -9,7 +9,7 @@ import com.eviware.soapui.support.SoapUIException;
  * 请求响应处理：返回ByteArrayInputStream对象
  * @author 		： <a href="https://github.com/vindell">vindell</a>
  */
-public class StreamResponseHandler implements ResponseHandler<ByteArrayInputStream> {
+public class SoapStreamResponseHandler implements SoapResponseHandler<ByteArrayInputStream> {
 
 	@Override
 	public ByteArrayInputStream handleResponse(Response response) throws SoapUIException {

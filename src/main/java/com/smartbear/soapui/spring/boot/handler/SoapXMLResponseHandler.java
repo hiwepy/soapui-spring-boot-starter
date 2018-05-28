@@ -7,7 +7,7 @@ import com.eviware.soapui.support.SoapUIException;
  * 请求响应处理：返回String对象
  * @author 		： <a href="https://github.com/vindell">vindell</a>
  */
-public class XMLResponseHandler implements ResponseHandler<String> {
+public class SoapXMLResponseHandler implements SoapResponseHandler<String> {
  
 	@Override
 	public String handleResponse(Response response) throws SoapUIException {

@@ -7,7 +7,7 @@ import com.eviware.soapui.support.SoapUIException;
  * Handler that encapsulates the process of generating a response object
  * from a {@link Response}.
  */
-public interface ResponseHandler<T> {
+public interface SoapResponseHandler<T> {
 
     /**
      * Processes an {@link Response} and returns some value

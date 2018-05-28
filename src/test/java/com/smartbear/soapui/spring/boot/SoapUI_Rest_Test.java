@@ -20,7 +20,7 @@ import com.eviware.soapui.model.iface.Response;
 import com.eviware.soapui.model.project.Project;
 import com.eviware.soapui.model.support.ProjectListenerAdapter;
 import com.eviware.soapui.support.SoapUIException;
-import com.smartbear.soapui.spring.boot.handler.XMLResponseHandler;
+import com.smartbear.soapui.spring.boot.handler.SoapXMLResponseHandler;
 
 public class SoapUI_Rest_Test {
 
@@ -35,9 +35,9 @@ public class SoapUI_Rest_Test {
         testCaseRunner.run();
 	}*/
 	
-	private SoapUIWsdlTemplate template;
+	private SoapuiWsdlTemplate template;
 	private String wsdlUrl = "http://www.webxml.com.cn/WebServices/IpAddressSearchWebService.asmx?wsdl";
-	private XMLResponseHandler handler = new XMLResponseHandler();
+	private SoapXMLResponseHandler handler = new SoapXMLResponseHandler();
 	
 	@Before
 	public void setup() throws XmlException, IOException, SoapUIException {
@@ -59,7 +59,7 @@ public class SoapUI_Rest_Test {
 			
 		});
 		
-		template = new SoapUIWsdlTemplate(project);
+		template = new SoapuiWsdlTemplate(project);
 		
 	}
 	 

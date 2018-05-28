@@ -24,8 +24,8 @@ import com.eviware.soapui.impl.wsdl.WsdlProject.ProjectEncryptionStatus;
 import com.eviware.soapui.model.testsuite.TestSuite.TestSuiteRunType;
 import com.smartbear.soapui.spring.boot.property.EnvironmentProperty;
 
-@ConfigurationProperties(SoapUIProperties.PREFIX)
-public class SoapUIProperties {
+@ConfigurationProperties(SoapuiProperties.PREFIX)
+public class SoapuiProperties {
 
 	public static final String PREFIX = "soapui";
 
