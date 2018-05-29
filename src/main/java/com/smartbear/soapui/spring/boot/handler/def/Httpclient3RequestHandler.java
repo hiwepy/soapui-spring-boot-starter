@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.smartbear.soapui.spring.boot.handler;
+package com.smartbear.soapui.spring.boot.handler.def;
 
 import java.io.ByteArrayInputStream;
 
@@ -23,8 +23,11 @@ import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.HttpClients;
 
+import com.smartbear.soapui.spring.boot.handler.AbstractResponseHandler;
+import com.smartbear.soapui.spring.boot.handler.SoapHttpRequestHandler;
 
-public class Httpclient3RequestHandler implements SoapRequestHandler {
+
+public class Httpclient3RequestHandler implements SoapHttpRequestHandler {
 
 	private HttpClient httpclient;
 	private AbstractResponseHandler<String> handler;

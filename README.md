@@ -54,6 +54,7 @@ com.eviware.soapui.impl.wsdl.support.wsdl.CachedWsdlLoader
 com.eviware.soapui.impl.wsdl.support.wsdl.UrlWsdlLoader
 com.eviware.soapui.impl.wsdl.support.wsdl.WsdlImporter
 com.eviware.soapui.impl.wsdl.support.wsdl.WsdlUtils
+com.eviware.soapui.impl.wsdl.support.soap.SoapUtils
 
 com.eviware.soapui.support.xml.XmlUtils
 com.eviware.soapui.support.JsonUtil

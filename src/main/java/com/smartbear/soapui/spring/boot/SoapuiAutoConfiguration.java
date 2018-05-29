@@ -3,6 +3,8 @@ package com.smartbear.soapui.spring.boot;
 import java.util.Iterator;
 import java.util.Properties;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -12,12 +14,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
+import com.eviware.soapui.SoapUI;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.model.environment.DefaultEnvironment;
 import com.eviware.soapui.model.environment.Environment;
+import com.eviware.soapui.settings.HttpSettings;
 import com.eviware.soapui.support.scripting.groovy.SoapUIGroovyScriptEngine;
 import com.eviware.soapui.support.scripting.js.JsScriptEngine;
-import com.smartbear.soapui.spring.boot.handler.SoapRequestHandler;
 import com.smartbear.soapui.spring.boot.property.EnvironmentProperty;
 
 @Configuration
@@ -108,13 +111,18 @@ public class SoapuiAutoConfiguration {
 	}
 	
 	@Bean
-	public SoapuiWsdlTemplate wsdlTemplate(WsdlProject wsdlProject ,SoapuiProperties properties) throws Exception {
+	public SoapuiWsdlTemplate soapuiWsdlTemplate(WsdlProject wsdlProject ,SoapuiProperties properties) throws Exception {
 		return new SoapuiWsdlTemplate(wsdlProject, properties);
 	}
 	
 	@Bean
-	public SoapuiRequestTemplate soapuiRequestTemplate(SoapuiWsdlTemplate wsdlTemplate , SoapRequestHandler requestHandler) throws Exception {
-		return new SoapuiRequestTemplate(wsdlTemplate, requestHandler);
+	public SoapuiRequestTemplate soapuiRequestTemplate(SoapuiWsdlTemplate soapuiWsdlTemplate ) throws Exception {
+		return new SoapuiRequestTemplate(soapuiWsdlTemplate);
+	}
+	
+	@PostConstruct
+	public void init() {
+		SoapUI.getSettings().setBoolean(HttpSettings.DISABLE_RESPONSE_DECOMPRESSION, true);
 	}
 	
 }

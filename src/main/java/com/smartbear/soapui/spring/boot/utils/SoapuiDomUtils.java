@@ -43,20 +43,33 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class DOMUtil {
-	
+public class SoapuiDomUtils {
+/*
 	private static String ELEMENT_NAME_FUNC = "/name()";
-
 	private static XPathFactory xPathFactory = XPathFactory.newInstance();
+	private static DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();;
+
+	public SoapuiDomUtils() {
+		docBuilderFactory.setNamespaceAware(true);
+	}
+
+	public static synchronized DocumentBuilder newDocumentBuilder() throws IOException {
+		try {
+			return docBuilderFactory.newDocumentBuilder();
+		} catch (ParserConfigurationException pce) {
+			IOException ioe = new IOException("Could not create document builder");
+			ioe.initCause(pce);
+			throw ioe;
+		}
+	}
 
 	public static Document createDocument() throws ConfigurationException {
 		Document doc = null;
 		try {
-			doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-		} catch (ParserConfigurationException e) {
+			doc = newDocumentBuilder().newDocument();
+		} catch (IOException e) {
 			throw new ConfigurationException("Failed to create ESB Configuration Document instance.");
 		}
-
 		return doc;
 	}
 
@@ -153,26 +166,7 @@ public class DOMUtil {
 		}
 	}
 
-	public static int countElementsBefore(Node node, String tagName) {
-		Node parent = node.getParentNode();
-
-		NodeList siblings = parent.getChildNodes();
-		int count = 0;
-		int siblingCount = siblings.getLength();
-
-		for (int i = 0; i < siblingCount; ++i) {
-			Node sibling = siblings.item(i);
-
-			if (sibling == node) {
-				break;
-			}
-			if ((sibling.getNodeType() == 1) && (((Element) sibling).getTagName().equals(tagName))) {
-				++count;
-			}
-		}
-
-		return count;
-	}
+	
 
 	public static List<Node> copyNodeList(NodeList nodeList) {
 		List copy = new Vector();
@@ -201,19 +195,7 @@ public class DOMUtil {
 		return null;
 	}
 
-	public static Node getFirstChildByType(Element element, int nodeType) {
-		NodeList children = element.getChildNodes();
-		int childCount = children.getLength();
-
-		for (int i = 0; i < childCount; ++i) {
-			Node child = children.item(i);
-			if (child.getNodeType() == nodeType) {
-				return child;
-			}
-		}
-
-		return null;
-	}
+	
 
 	public static NodeList getNodeList(Node node, String xpath) {
 		if (node == null)
@@ -242,14 +224,7 @@ public class DOMUtil {
 		return nodeList.item(0);
 	}
 
-	public static String getName(Element element) {
-		String name = element.getLocalName();
-
-		if (name != null) {
-			return name;
-		}
-		return element.getTagName();
-	}
+	
 
 	public static void copyChildNodes(Node source, Node target) {
 		List nodeList = copyNodeList(source.getChildNodes());
@@ -257,5 +232,5 @@ public class DOMUtil {
 
 		for (int i = 0; i < childCount; ++i)
 			target.appendChild((Node) nodeList.get(i));
-	}
+	}*/
 }

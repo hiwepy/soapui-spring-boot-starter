@@ -1,7 +1,8 @@
- package com.smartbear.soapui.spring.boot.handler;
+ package com.smartbear.soapui.spring.boot.handler.def;
 
 import com.eviware.soapui.model.iface.Response;
 import com.eviware.soapui.support.SoapUIException;
+import com.smartbear.soapui.spring.boot.handler.SoapResponseHandler;
 
 /**
  * 请求响应处理：返回String对象

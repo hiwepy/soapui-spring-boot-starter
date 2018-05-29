@@ -1,4 +1,4 @@
-package com.smartbear.soapui.spring.boot.handler;
+package com.smartbear.soapui.spring.boot.handler.def;
 
 import java.io.IOException;
 
@@ -11,6 +11,8 @@ import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.ContentType;
 import org.apache.http.util.EntityUtils;
+
+import com.smartbear.soapui.spring.boot.handler.AbstractResponseHandler;
 
 /**
  * http请求响应处理：返回字符串结果对象

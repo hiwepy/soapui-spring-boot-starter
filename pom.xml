@@ -383,6 +383,7 @@
 		<log4j.version>1.2.14</log4j.version>
 		<fife-common.version>2.6.3</fife-common.version>
 		<guava.version>25.1-jre</guava.version>
+		<httpclient.version>4.3.6</httpclient.version><!-- 需要使用低版本httpclient，否则会报异常 -->
 		<junit.version>4.11</junit.version>
 		<reflections.version>0.9.11</reflections.version>
 		<rsyntaxtextarea.version>2.6.1</rsyntaxtextarea.version>
@@ -606,6 +607,9 @@
 				<version>5.4.0</version>
 			</dependency>
 			
+
+			
+			
 		</dependencies>
 	</dependencyManagement>
 
@@ -746,6 +750,12 @@
 			<groupId>net.sourceforge.saxon</groupId>
 			<artifactId>saxon</artifactId>
 			<version>${saxon.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sf.saxon/saxon-dom -->
+		<dependency>
+		    <groupId>net.sf.saxon</groupId>
+		    <artifactId>saxon-dom</artifactId>
+		    <version>8.7</version>
 		</dependency>
 
 		<dependency>

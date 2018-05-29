@@ -15,7 +15,7 @@
  */
 package com.smartbear.soapui.spring.boot.handler;
 
-public interface SoapRequestHandler {
+public interface SoapHttpRequestHandler {
 
 	void preHande();
 	

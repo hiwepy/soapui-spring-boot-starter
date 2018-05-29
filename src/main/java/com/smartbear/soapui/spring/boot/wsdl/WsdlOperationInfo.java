@@ -27,7 +27,7 @@ import com.eviware.soapui.impl.wsdl.WsdlOperation;
 import com.eviware.soapui.impl.wsdl.support.Constants;
 import com.eviware.soapui.impl.wsdl.support.soap.SoapVersion;
 import com.google.common.collect.Lists;
-import com.smartbear.soapui.spring.boot.utils.XmlUtil;
+import com.smartbear.soapui.spring.boot.utils.SoapuiXmlUtils;
 
 /**
  * Wsdl Operation Info
@@ -66,12 +66,11 @@ public class WsdlOperationInfo {
 		this.soapAction = this.soapVersion.getSoapActionHeader(operation.getAction());
 
 		// 处理targetNameSpace
-		this.targetNameSpace = requestXml.substring(requestXml.lastIndexOf("\"http://") + 1,
-				requestXml.lastIndexOf("\">"));
+		this.targetNameSpace = requestXml.substring(requestXml.lastIndexOf("\"http://") + 1, requestXml.lastIndexOf("\">"));
 
-		if (this.soapVersion.getEnvelopeNamespace().startsWith(Constants.SOAP11_ENVELOPE_NS)) {
+		if (this.soapVersion.getEnvelopeNamespace().equalsIgnoreCase(Constants.SOAP11_ENVELOPE_NS)) {
 			this.setTargetXsd("11");
-		} else if (this.soapVersion.getEnvelopeNamespace().startsWith(Constants.SOAP12_ENVELOPE_NS)) {
+		} else if (this.soapVersion.getEnvelopeNamespace().equalsIgnoreCase(Constants.SOAP12_ENVELOPE_NS)) {
 			this.setTargetXsd("12");
 		}
 
@@ -79,11 +78,11 @@ public class WsdlOperationInfo {
 		this.inputNames = Lists.newArrayList();
 		this.outputType = Lists.newArrayList();
 
-		try {
-			XmlUtil.parseXML(this.requestXml, this.inputType, this.inputNames, this.outputType);
+		/*try {
+			SoapuiXmlUtils.parseXML(this.requestXml, this.inputType, this.inputNames, this.outputType);
 		} catch (DocumentException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		this.responseXml = operation.createResponse(true);
 	}

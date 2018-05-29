@@ -19,19 +19,26 @@ import org.w3c.dom.Comment;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.eviware.soapui.support.xml.XmlUtils;
+
 public class OGNLUtils {
+	
 	public static final String IS_COLLECTION_ATTRIB = "is-collection";
 
 	public static String getOGNLExpression(Element element) {
+		
 		StringBuffer ognlExpression = new StringBuffer();
+		
 		Node parent = element.getParentNode();
+		
 		boolean isInBody = false;
 
 		ognlExpression.append(getOGNLToken(element));
 
 		while ((parent != null) && (parent.getNodeType() == 1)) {
+			
 			Element parentElement = (Element) parent;
-			String parentName = DOMUtil.getName(parentElement);
+			String parentName = SoapuiXmlUtils.getName(parentElement);
 
 			if ((parentName.equalsIgnoreCase("body"))
 					&& (parent.getNamespaceURI().equalsIgnoreCase("http://schemas.xmlsoap.org/soap/envelope/"))) {
@@ -60,9 +67,10 @@ public class OGNLUtils {
 		ognlExpression.append(getOGNLToken(element));
 
 		while ((parent != null) && (parent.getNodeType() == 1)) {
+			
 			Element parentElement = (Element) parent;
-			String parentName = DOMUtil.getName(parentElement);
-
+			
+			String parentName = SoapuiXmlUtils.getName(parentElement);
 			if ((parentName.equalsIgnoreCase("body")) && (checkParentNameSpace(parent.getNamespaceURI(), nameSpace))) {
 				isInBody = true;
 				break;
@@ -85,47 +93,37 @@ public class OGNLUtils {
 		if (parentNS == null) {
 			return false;
 		}
-		SOAPNameSpaces[] defaultNamespaces = SOAPNameSpaces.values();
+		/*SOAPNameSpaces[] defaultNamespaces = SOAPNameSpaces.values();
 		for (SOAPNameSpaces defaultNS : defaultNamespaces) {
 			if (parentNS.equalsIgnoreCase(defaultNS.getNameSpace())) {
 				return true;
 			}
-		}
+		}*/
 		return parentNS.equalsIgnoreCase(namespace);
 	}
 
 	public static String getOGNLToken(Element element) {
+		
 		String localName = element.getLocalName();
 		String ognlToken;
 		if (assertIsParentCollection(element)) {
-			int count = DOMUtil.countElementsBefore(element, element.getTagName());
+			int count = SoapuiXmlUtils.countElementsBefore(element, element.getTagName());
 			ognlToken = "[" + count + "]";
 		} else {
 			ognlToken = "." + localName;
 		}
-
+		
 		return ognlToken;
 	}
 
 	private static boolean assertIsCollection(Element element) {
-		Comment firstComment = (Comment) DOMUtil.getFirstChildByType(element, 8);
-
+		Comment firstComment = (Comment) SoapuiXmlUtils.getFirstChildByType(element, Node.COMMENT_NODE);
 		return ((firstComment != null) && (firstComment.getNodeValue().indexOf("1 or more repetitions") != -1));
 	}
 
 	private static boolean assertIsParentCollection(Element element) {
 		Node parent = element.getParentNode();
-
 		return ((parent != null) && (parent.getNodeType() == 1) && (assertIsCollection((Element) parent)));
 	}
-
-	private static enum SOAPNameSpaces {
-		SOAP_1_1, SOAP_1_2;
-
-		private String nameSpace;
-
-		public String getNameSpace() {
-			return this.nameSpace;
-		}
-	}
+ 
 }
