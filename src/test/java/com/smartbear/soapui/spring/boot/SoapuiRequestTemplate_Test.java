@@ -23,8 +23,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.eviware.soapui.model.iface.Request.SubmitException;
-import com.eviware.soapui.settings.HttpSettings;
-import com.eviware.soapui.SoapUI;
 import com.eviware.soapui.model.iface.Response;
 import com.eviware.soapui.support.SoapUIException;
 import com.google.common.collect.Maps;
@@ -39,7 +37,7 @@ public class SoapuiRequestTemplate_Test extends AbstractWsdlTemplate_Test {
 	}
 	
 
-	//@Test
+	@Test
 	public void invokeAt() throws XmlException, IOException, SoapUIException, SubmitException {
 
 		//SoapUI.getSettings().setBoolean(HttpSettings.DISABLE_RESPONSE_DECOMPRESSION, true);
@@ -66,17 +64,14 @@ public class SoapuiRequestTemplate_Test extends AbstractWsdlTemplate_Test {
 		
 		System.err.println( "invokeByName===========================================");
 		
-		Map<String, Object> params = Maps.newHashMap();
+		//Map<String, Object> params = Maps.newHashMap();
+		//params.put("theIpAddress",  "221.110.10.14");
 		
-		params.put("theIpAddress",  "221.110.10.14");
-		
-		Response response = requestTemplate.invokeByName(wsdlUrl, "getCountryCityByIp", params);
+		Response response = requestTemplate.invokeByName(wsdlUrl, "getCountryCityByIp", "221.110.10.14");
 		
 		//System.out.println(response.getResponseHeaders());
 		
 		System.out.println(response.getContentAsString());
-		
-			 
 		
 	}
 	

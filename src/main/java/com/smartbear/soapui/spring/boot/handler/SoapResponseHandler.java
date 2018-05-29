@@ -1,5 +1,6 @@
 package com.smartbear.soapui.spring.boot.handler;
 
+import com.eviware.soapui.impl.wsdl.WsdlOperation;
 import com.eviware.soapui.model.iface.Response;
 import com.eviware.soapui.support.SoapUIException;
 
@@ -18,6 +19,6 @@ public interface SoapResponseHandler<T> {
      *
      * @throws SoapUIException in case of a problem or the connection was aborted
      */
-    T handleResponse(Response response) throws SoapUIException;
+    T handleResponse(WsdlOperation operationInst, Response response) throws SoapUIException;
 
 }

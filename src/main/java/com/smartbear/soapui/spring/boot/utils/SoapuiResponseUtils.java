@@ -15,22 +15,77 @@
  */
 package com.smartbear.soapui.spring.boot.utils;
 
-import java.io.IOException;
-import java.util.Map;
+import java.util.List;
 
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
-import org.w3c.dom.Document;
+import org.assertj.core.util.Lists;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.eviware.soapui.impl.wsdl.support.soap.SoapUtils;
 import com.eviware.soapui.impl.wsdl.support.soap.SoapVersion;
+import com.eviware.soapui.support.SoapUIException;
 import com.eviware.soapui.support.xml.XmlUtils;
-import com.google.common.collect.Maps;
 
 public class SoapuiResponseUtils {
+	
+	public static String[] parseResponseToArray(String soapResponseBody, SoapVersion soapVersion) throws SoapUIException {
+		
+		try {
+			/*
+			<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			   <soap:Body>
+			      <getCountryCityByIpResponse xmlns="http://WebXml.com.cn/">
+			         <getCountryCityByIpResult>
+			            <string>221.110.10.14</string>
+			            <string>日本</string>
+			         </getCountryCityByIpResult>
+			      </getCountryCityByIpResponse>
+			   </soap:Body>
+			</soap:Envelope>
+			*/
+			XmlObject xmlObject = XmlUtils.createXmlObject(soapResponseBody);
+			// Header
+			//Element header = XmlUtils.getFirstChildElementIgnoreCase(element, "soapenv:Header");
+			//Element header = (Element) SoapUtils.getHeaderElement(xmlObject, soapVersion, true);
+			//System.out.println(header);
+			// Body
+			//Element body = XmlUtils.getFirstChildElementIgnoreCase(element, "soapenv:Body");
+			Element body = (Element) SoapUtils.getBodyElement(xmlObject, soapVersion).getDomNode();
+			//System.out.println(body);
+			List<String> result = Lists.newArrayList();
+			// Method Response Elements		
+			NodeList methodNodes = body.getChildNodes();
+			for (int i = 0; i < methodNodes.getLength(); ++i) {
+				// Method Response Element	
+				Node methodNode = methodNodes.item(i);
+				if (methodNode.getNodeType() == Node.ELEMENT_NODE) {
+					//System.out.println(methodNode.getLocalName());
+					// Method Result Elements		
+					NodeList resultNodes = methodNode.getChildNodes();
+					for (int j = 0; j < resultNodes.getLength(); j++) {
+						// Method Result Element
+						Node resultNode = resultNodes.item(j);
+						// Response Object Array
+						NodeList respNodes = resultNode.getChildNodes();
+						for (int k = 0; k < respNodes.getLength(); ++k) {
+							// Response Object Element
+							Node respNode = respNodes.item(k);
+							if ( respNode.getNodeType() == Node.ELEMENT_NODE) {
+								result.add(respNode.getNodeValue());
+							}
+						}
+					}
+				}
+			}
+			return result.toArray(new String[result.size()]);
+		} catch (Exception e) {
+			throw new SoapUIException(e);
+		}
+		
+	}
 
 	public static String getFaultCode(SoapVersion soapVersion, String responseContent) {
 		try {
@@ -44,66 +99,6 @@ public class SoapuiResponseUtils {
 			}
 		} catch (XmlException e) {
 			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public static Map<String, String> populateResponseMap(String soapResponseXML) {
-
-		Map<String, String> resultMap = Maps.newLinkedHashMap();
-		try {
-
-			Document doc = XmlUtils.parseXml(soapResponseXML);
-
-			Element graphRootElement = getGraphRootElement(doc.getDocumentElement());
-
-			populateResponseOgnlMap(resultMap, graphRootElement);
-
-		} catch (IOException e) {
-			throw new RuntimeException("Unexpected error reading SOAP response.", e);
-		}
-
-		return resultMap;
-	}
-
-	private static void populateResponseOgnlMap(Map<String, String> map, Element element) {
-		NodeList children = element.getChildNodes();
-		int childCount = children.getLength();
-
-		if (childCount == 1) {
-			Node childNode = children.item(0);
-			if (childNode.getNodeType() == 3) {
-				String ognl = OGNLUtils.getOGNLExpression(element);
-				map.put(ognl, childNode.getNodeValue());
-				return;
-			}
-
-		}
-
-		for (int i = 0; i < childCount; ++i) {
-			Node childNode = children.item(i);
-			if (childNode.getNodeType() == 1)
-				populateResponseOgnlMap(map, (Element) childNode);
-		}
-	}
-
-	private static Element getGraphRootElement(Element element) {
-
-		String ognl = OGNLUtils.getOGNLExpression(element);
-		if ((ognl != null) && (!(ognl.equals("")))) {
-			return element;
-		}
-
-		NodeList children = element.getChildNodes();
-		int childCount = children.getLength();
-		for (int i = 0; i < childCount; ++i) {
-			Node node = children.item(i);
-			if (node.getNodeType() == 1) {
-				Element graphRootElement = getGraphRootElement((Element) node);
-				if (graphRootElement != null) {
-					return graphRootElement;
-				}
-			}
 		}
 		return null;
 	}

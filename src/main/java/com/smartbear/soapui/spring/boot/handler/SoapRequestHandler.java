@@ -15,10 +15,16 @@
  */
 package com.smartbear.soapui.spring.boot.handler;
 
-public interface SoapHttpRequestHandler {
+import com.eviware.soapui.impl.wsdl.WsdlOperation;
+import com.eviware.soapui.impl.wsdl.WsdlRequest;
+import com.eviware.soapui.support.SoapUIException;
 
-	void preHande();
-	
-	String doHandle(String address, String action, String message)  throws Exception;
+/**
+ * TODO
+ * @author 		： <a href="https://github.com/vindell">vindell</a>
+ */
+public interface SoapRequestHandler<T> {
+
+	String handleRequest(WsdlOperation operationInst, WsdlRequest request,T params) throws SoapUIException;
 	
 }
