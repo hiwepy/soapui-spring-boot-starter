@@ -37,7 +37,7 @@ public class SoapuiRequestTemplate_Test extends AbstractWsdlTemplate_Test {
 	}
 	
 
-	@Test
+	//@Test
 	public void invokeAt() throws XmlException, IOException, SoapUIException, SubmitException {
 
 		//SoapUI.getSettings().setBoolean(HttpSettings.DISABLE_RESPONSE_DECOMPRESSION, true);
@@ -48,7 +48,7 @@ public class SoapuiRequestTemplate_Test extends AbstractWsdlTemplate_Test {
 		
 		params.put("theIpAddress",  "221.110.10.14");
 		
-		Response response = requestTemplate.invokeAt(wsdlUrl, 0, params);
+		Response response = requestTemplate.invokeAt(wsdlUrl, 1, params);
 		
 		System.out.println(response.getResponseHeaders());
 		
@@ -69,7 +69,7 @@ public class SoapuiRequestTemplate_Test extends AbstractWsdlTemplate_Test {
 		
 		Response response = requestTemplate.invokeByName(wsdlUrl, "getCountryCityByIp", "221.110.10.14");
 		
-		//System.out.println(response.getResponseHeaders());
+		System.out.println(response.getResponseHeaders());
 		
 		System.out.println(response.getContentAsString());
 		

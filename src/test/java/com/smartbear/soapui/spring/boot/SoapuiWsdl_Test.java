@@ -20,20 +20,10 @@ import com.smartbear.soapui.spring.boot.wsdl.WsdlInterfaceInfo;
 import com.smartbear.soapui.spring.boot.wsdl.WsdlOperationInfo;
 
 /**
- * 
  * http://www.cnblogs.com/coshaho/p/5105545.html
  * http://www.cnblogs.com/coshaho/p/5689738.html
- * 
- * WSDLParseTest.java Create on 2016年7月20日 下午9:24:36
- * 
- * 类功能说明: WSDL解析测试
- *
- * Copyright: Copyright(c) 2013 Company: COSHAHO
- * 
- * @Version 1.0
- * @Author 何科序
  */
-public class WSDLParseTest {
+public class SoapuiWsdl_Test {
 	
 	public static void main(String[] args) throws Exception {
         

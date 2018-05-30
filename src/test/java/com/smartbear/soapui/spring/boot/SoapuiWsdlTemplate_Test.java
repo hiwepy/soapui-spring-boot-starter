@@ -40,7 +40,7 @@ public class SoapuiWsdlTemplate_Test extends AbstractWsdlTemplate_Test {
 		System.err.println( "getOperationAt===========================================");
 		
 		// wait for the response
-		WsdlOperation operation = wsdlTemplate.getOperationAt(wsdlUrl, 0);
+		WsdlOperation operation = wsdlTemplate.getOperationAt(wsdlUrl, 1);
 			
 		System.out.println( "Name : " + operation.getName() );
 		System.out.println( "Action : " + operation.getAction() );
@@ -155,9 +155,7 @@ public class SoapuiWsdlTemplate_Test extends AbstractWsdlTemplate_Test {
 				System.out.println( "OperationType : " + optInfo.getOperationType().toString());
 				System.out.println( "InputDesc : " + optInfo.getInputDesc());
 				System.out.println( "InputNames : " + optInfo.getInputNames());
-				System.out.println( "InputType : " + optInfo.getInputType());
-				System.out.println( "OutputNames : " + optInfo.getOutputNames());
-				System.out.println( "OutputType : " + optInfo.getOutputType());
+				System.out.println( "InputTypes : " + optInfo.getInputTypes());
 				
 			}
 			

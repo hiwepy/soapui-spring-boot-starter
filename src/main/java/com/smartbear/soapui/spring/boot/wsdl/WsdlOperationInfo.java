@@ -27,7 +27,7 @@ import com.eviware.soapui.impl.wsdl.support.Constants;
 import com.eviware.soapui.impl.wsdl.support.soap.SoapVersion;
 import com.eviware.soapui.support.SoapUIException;
 import com.google.common.collect.Lists;
-import com.smartbear.soapui.spring.boot.utils.SoapuiXmlUtils;
+import com.smartbear.soapui.spring.boot.utils.SoapuiRequestUtils;
 
 /**
  * Wsdl Operation Info
@@ -49,8 +49,6 @@ public class WsdlOperationInfo {
 	private List<String> inputNames;
 	private List<String> inputTypes;
 	private List<String> inputDesc;
-	private List<String> outputNames;
-	private List<String> outputTypes;
 	private String sep = "#";
 
 	public WsdlOperationInfo(WsdlOperation operation) {
@@ -80,11 +78,8 @@ public class WsdlOperationInfo {
 
 			this.inputNames = Lists.newArrayList();
 			this.inputTypes = Lists.newArrayList();
-			this.outputNames = Lists.newArrayList();
-			this.outputTypes = Lists.newArrayList();
 
-			SoapuiXmlUtils.extractRequest(this.requestXml, this.soapVersion, this.inputNames, this.inputTypes);
-			SoapuiXmlUtils.extractResponse(this.responseXml, this.soapVersion, this.outputNames, this.outputTypes);
+			SoapuiRequestUtils.extractRequest(this.requestXml, this.soapVersion, this.inputNames, this.inputTypes);
 
 		} catch (SoapUIException e) {
 			e.printStackTrace();
@@ -144,14 +139,6 @@ public class WsdlOperationInfo {
 		return inputDesc;
 	}
 
-	public List<String> getOutputNames() {
-		return outputNames;
-	}
-
-	public List<String> getOutputTypes() {
-		return outputTypes;
-	}
-
 	@Override
 	public String toString() {
 		StringBuffer su = new StringBuffer();
@@ -165,8 +152,6 @@ public class WsdlOperationInfo {
 		su.append(this.sep);
 		su.append(this.sep);
 		su.append(this.soapAction == null ? "" : this.soapAction);
-		su.append(this.sep);
-		su.append(this.outputTypes == null ? "" : StringUtils.join(this.outputTypes.toArray(), "@"));
 		su.append(this.sep);
 		su.append(this.targetXsd == null ? "" : this.targetXsd);
 		return su.toString();

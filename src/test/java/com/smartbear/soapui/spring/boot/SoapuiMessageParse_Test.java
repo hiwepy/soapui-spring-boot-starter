@@ -31,10 +31,12 @@ import com.eviware.soapui.support.xml.XmlUtils;
  * @author 		： <a href="https://github.com/vindell">vindell</a>
  */
 
-public class SoapUtil {
+public class SoapuiMessageParse_Test {
 
-	
-	public static void main(String[] args) throws IOException, Exception {
+	/**
+	 * 多结果
+	 */
+	public void testMultiResult() throws IOException, Exception {
 		
 		String responseContent = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:web=\"http://WebXml.com.cn/\">\r\n" + 
 				"   <soapenv:Header/>\r\n" + 
@@ -79,6 +81,8 @@ public class SoapUtil {
 						Node respNode = respNodes.item(k);
 						if ( respNode.getNodeType() == Node.ELEMENT_NODE) {
 							
+							XmlUtils.setNodeValue(respNode, "546454");
+							
 							System.out.println(respNode.getNodeName());
 							System.out.println(respNode.getLocalName());
 							System.out.println(respNode.getNodeValue());
@@ -101,5 +105,6 @@ public class SoapUtil {
 		System.out.println(XmlUtils.getElementPath(docRoot));
 		
 		System.out.println(SoapuiXmlUtils.getNode(node, "/web:method1[1]"));;*/
+		System.exit(0);
 	}
 }

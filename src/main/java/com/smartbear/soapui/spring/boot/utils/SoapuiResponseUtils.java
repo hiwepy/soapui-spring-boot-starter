@@ -35,16 +35,35 @@ public class SoapuiResponseUtils {
 		
 		try {
 			/*
-			<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-			   <soap:Body>
-			      <getCountryCityByIpResponse xmlns="http://WebXml.com.cn/">
-			         <getCountryCityByIpResult>
-			            <string>221.110.10.14</string>
-			            <string>日本</string>
-			         </getCountryCityByIpResult>
-			      </getCountryCityByIpResponse>
-			   </soap:Body>
+			At Least One Result：
+			<?xml version="1.0" encoding="utf-8"?>
+			<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+			  <soap:Body>
+			    <getWeatherbyCityNameResponse xmlns="http://WebXml.com.cn/">
+			      <getWeatherbyCityNameResult>
+			        <string>浙江</string>
+					<string>杭州</string>
+					<string>58457</string>
+					<string>58457.jpg</string>
+					<string>2018/5/30 10:17:08</string>
+					<string>20℃/28℃</string>
+					<string>5月30日 阵雨转中雨</string>
+					<string>东风转东北风小于3级</string>
+			      </getWeatherbyCityNameResult>
+			    </getWeatherbyCityNameResponse>
+			  </soap:Body>
 			</soap:Envelope>
+			No Result：
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://WebXml.com.cn/">
+   				<soap:Header/>
+			   	<soap:Body>
+			      	<web:getVersionTimeResponse>
+			         	<!--Optional:-->
+			         	<web:getVersionTimeResult/>
+			      	</web:getVersionTimeResponse>
+			   	</soap:Body>
+			</soap:Envelope>
+
 			*/
 			XmlObject xmlObject = XmlUtils.createXmlObject(soapResponseBody);
 			// Header
@@ -68,14 +87,19 @@ public class SoapuiResponseUtils {
 					for (int j = 0; j < resultNodes.getLength(); j++) {
 						// Method Result Element
 						Node resultNode = resultNodes.item(j);
-						// Response Object Array
-						NodeList respNodes = resultNode.getChildNodes();
-						for (int k = 0; k < respNodes.getLength(); ++k) {
-							// Response Object Element
-							Node respNode = respNodes.item(k);
-							if ( respNode.getNodeType() == Node.ELEMENT_NODE) {
-								result.add(respNode.getNodeValue());
+						// At Least One Result
+						if ( SoapuiXmlUtils.countChildElementsOfType(resultNode, Node.ELEMENT_NODE) > 0) {
+							// Response Object Array
+							NodeList respNodes = resultNode.getChildNodes();
+							for (int k = 0; k < respNodes.getLength(); ++k) {
+								// Response Object Element
+								Node respNode = respNodes.item(k);
+								if ( respNode.getNodeType() == Node.ELEMENT_NODE) {
+									result.add(XmlUtils.getNodeValue(respNode));
+								}
 							}
+						} else if(resultNode.getNodeType() == Node.ELEMENT_NODE ) {
+							result.add(XmlUtils.getNodeValue(resultNode));
 						}
 					}
 				}
