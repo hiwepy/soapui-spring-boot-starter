@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
-import org.assertj.core.util.Lists;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -28,6 +27,7 @@ import com.eviware.soapui.impl.wsdl.support.soap.SoapUtils;
 import com.eviware.soapui.impl.wsdl.support.soap.SoapVersion;
 import com.eviware.soapui.support.SoapUIException;
 import com.eviware.soapui.support.xml.XmlUtils;
+import com.google.common.collect.Lists;
 
 public class SoapuiResponseUtils {
 	
