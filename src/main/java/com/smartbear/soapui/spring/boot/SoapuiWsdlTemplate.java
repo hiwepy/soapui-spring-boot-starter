@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.xmlbeans.XmlException;
-import org.assertj.core.util.Lists;
 
 import com.eviware.soapui.impl.WsdlInterfaceFactory;
 import com.eviware.soapui.impl.wsdl.WsdlInterface;
@@ -35,6 +34,7 @@ import com.eviware.soapui.support.SoapUIException;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.google.common.collect.Lists;
 import com.smartbear.soapui.spring.boot.wsdl.WsdlInfo;
 
 /**
