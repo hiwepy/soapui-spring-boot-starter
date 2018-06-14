@@ -741,10 +741,6 @@
 		    <artifactId>saxon-dom</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/net.sf.saxon/saxon-xpath -->
-		<dependency>
-		    <groupId>net.sf.saxon</groupId>
-		    <artifactId>saxon-xpath</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>com.eviware</groupId>

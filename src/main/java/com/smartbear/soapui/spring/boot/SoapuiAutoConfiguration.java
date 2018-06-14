@@ -53,7 +53,7 @@ public class SoapuiAutoConfiguration {
 	}
 	
 	@Bean
-	public Environment environment(SoapuiProperties properties) throws Exception {
+	public Environment soapEnv(SoapuiProperties properties) throws Exception {
 		Environment env = DefaultEnvironment.getInstance();
 		EnvironmentProperty envProperties = properties.getEnv();
 		env.setName(envProperties.getName());
@@ -67,13 +67,13 @@ public class SoapuiAutoConfiguration {
 	}
 	
 	@Bean
-	public WsdlProject wsdlProject(SoapuiProperties properties, Environment environment) throws Exception {
+	public WsdlProject wsdlProject(SoapuiProperties properties, Environment soapEnv) throws Exception {
 		
 		// create new project
 		WsdlProject project = new WsdlProject();
 		
 		project.setAbortOnError(properties.isAbortOnError());
-		project.setActiveEnvironment(environment);
+		project.setActiveEnvironment(soapEnv);
 		if(StringUtils.hasText(properties.getScriptAfterLoad())) {
 			project.setAfterLoadScript(properties.getScriptAfterLoad());
 		}
