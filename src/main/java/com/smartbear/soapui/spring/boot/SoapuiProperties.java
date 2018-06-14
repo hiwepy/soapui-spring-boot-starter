@@ -104,7 +104,7 @@ public class SoapuiProperties {
 	/**
 	 *  The Name of the project
 	 */
-	private String name;
+	private String name = "default-project";
 	/**
 	 * The properties of the project
 	 */
