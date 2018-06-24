@@ -68,10 +68,6 @@ public class WsdlInfo {
 		}
 	}
 	
-	/**
-	 * @param wsdlUrl wsdl地址
-	 * @throws Exception
-	 */
 	public WsdlInfo(String wsdlUrl, WsdlInterface[] wsdlInterfaces) throws SoapUIException {
 		this.wsdlUrl = wsdlUrl;
 		if (null != wsdlInterfaces) {

@@ -37,13 +37,12 @@ public class SoapuiRequestUtils {
 	}
 	
 	/**
-	 * 
 	 * @author 		： <a href="https://github.com/vindell">vindell</a>
-	 * @param soapRequestBody
-	 * @param soapVersion
-	 * @param params
-	 * @return
-	 * @throws SoapUIException
+	 * @param soapRequestBody 请求内容模板
+	 * @param soapVersion     请求版本
+	 * @param params		     参数
+	 * @return	请求内容
+	 * @throws SoapUIException 构建发生异常
 	 */
 	public static String buildSoapMessage(String soapRequestBody, SoapVersion soapVersion, Map<String, Object> params) throws SoapUIException {
 
