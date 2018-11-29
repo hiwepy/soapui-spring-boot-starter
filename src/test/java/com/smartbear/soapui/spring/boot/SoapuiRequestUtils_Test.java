@@ -24,7 +24,7 @@ import org.junit.Test;
 import com.eviware.soapui.impl.wsdl.support.soap.SoapVersion;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.smartbear.soapui.spring.boot.utils.SoapuiRequestUtils;
+import com.smartbear.soapui.template.utils.SoapuiRequestUtils;
 
 public class SoapuiRequestUtils_Test {
 

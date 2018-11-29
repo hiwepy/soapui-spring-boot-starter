@@ -26,6 +26,7 @@ import com.eviware.soapui.model.environment.Property;
 import com.eviware.soapui.model.project.Project;
 import com.eviware.soapui.model.support.ProjectListenerAdapter;
 import com.eviware.soapui.support.SoapUIException;
+import com.smartbear.soapui.template.SoapuiWsdlTemplate;
 
 public abstract class AbstractWsdlTemplate_Test {
 

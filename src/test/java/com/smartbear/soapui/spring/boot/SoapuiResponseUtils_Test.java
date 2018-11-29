@@ -17,11 +17,11 @@ package com.smartbear.soapui.spring.boot;
 
 import java.io.IOException;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 import com.eviware.soapui.impl.wsdl.support.soap.SoapVersion;
-import com.smartbear.soapui.spring.boot.utils.SoapuiResponseUtils;
+import com.smartbear.soapui.template.utils.SoapuiResponseUtils;
 
 
 public class SoapuiResponseUtils_Test {

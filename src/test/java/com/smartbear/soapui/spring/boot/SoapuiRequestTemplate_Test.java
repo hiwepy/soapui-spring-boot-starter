@@ -26,6 +26,7 @@ import com.eviware.soapui.model.iface.Request.SubmitException;
 import com.eviware.soapui.model.iface.Response;
 import com.eviware.soapui.support.SoapUIException;
 import com.google.common.collect.Maps;
+import com.smartbear.soapui.template.SoapuiRequestTemplate;
 
 public class SoapuiRequestTemplate_Test extends AbstractWsdlTemplate_Test {
 	

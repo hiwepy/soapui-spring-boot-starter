@@ -28,9 +28,9 @@ import com.eviware.soapui.impl.wsdl.WsdlOperation;
 import com.eviware.soapui.model.iface.Operation;
 import com.eviware.soapui.model.iface.Request.SubmitException;
 import com.eviware.soapui.support.SoapUIException;
-import com.smartbear.soapui.spring.boot.wsdl.WsdlInfo;
-import com.smartbear.soapui.spring.boot.wsdl.WsdlInterfaceInfo;
-import com.smartbear.soapui.spring.boot.wsdl.WsdlOperationInfo;
+import com.smartbear.soapui.template.wsdl.WsdlInfo;
+import com.smartbear.soapui.template.wsdl.WsdlInterfaceInfo;
+import com.smartbear.soapui.template.wsdl.WsdlOperationInfo;
 
 public class SoapuiWsdlTemplate_Test extends AbstractWsdlTemplate_Test {
 	

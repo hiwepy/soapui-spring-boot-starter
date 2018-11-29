@@ -42,7 +42,7 @@
 			<timezone>+8</timezone>
 		</developer>
 	</developers>
-
+	
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
@@ -55,13 +55,6 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>smartbear-sweden-plugin-repository</id>
-			<url>http://www.soapui.org/repository/maven2/</url>
-		</pluginRepository>
-	</pluginRepositories>
 
 	<build>
 		<pluginManagement>
@@ -368,34 +361,26 @@
 			</build>
 		</profile>
 	</profiles>
-
+	
+	<repositories>
+		<repository>
+			<id>smartbear-sweden-plugin-repository</id>
+			<url>http://smartbearsoftware.com/repository/maven2/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<activation.version>1.1.1</activation.version>
-		<analytics.version>5.4.0</analytics.version>
-		<bcprov.version>1.59</bcprov.version>
-		<bcpkix.version>${bcprov.version}</bcpkix.version>
-		<bcmail.version>${bcprov.version}</bcmail.version>
-		<bcpg.version>${bcprov.version}</bcpg.version>
-		<bctls.version>${bcprov.version}</bctls.version>
-		<commons-beanutils.version>1.9.2</commons-beanutils.version>
-		<commons-cli.version>1.4</commons-cli.version>
-		<commons-logging.version>1.2</commons-logging.version>
-		<commons-io.version>2.5</commons-io.version>
-		<commons-ssl.version>0.3.9</commons-ssl.version>
 		<contiperf.version>2.3.4</contiperf.version>
-		<dom4j.version>2.1.0</dom4j.version>
-		<log4j.version>1.2.14</log4j.version>
-		<fife-common.version>2.6.3</fife-common.version>
-		<guava.version>25.1-jre</guava.version>
-		<httpclient.version>4.3.6</httpclient.version><!-- 需要使用低版本httpclient，否则soapui会报异常 -->
-		<junit.version>4.11</junit.version>
-		<reflections.version>0.9.11</reflections.version>
-		<rhino.version>1.7.10</rhino.version>
-		<rsyntaxtextarea.version>2.6.1</rsyntaxtextarea.version>
-		<saxon.version>8.7</saxon.version>
 		<soapui.version>5.4.0</soapui.version>
+		<soapui-template.version>1.0.0.RELEASE</soapui-template.version>
 		<maven.version>3.0</maven.version>
 		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 		<maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
@@ -403,41 +388,11 @@
 		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
 		<maven-surefire-plugin.vertsion>2.21.0</maven-surefire-plugin.vertsion>
 		<maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
-		<wsdl4j.version>1.6.3</wsdl4j.version>
-		<wss4j.version>1.6.19</wss4j.version>
-		<xalan.version>2.7.1</xalan.version>
-		<xmlbeans.version>2.6.0</xmlbeans.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
-			
-			<dependency>
-				<groupId>javax.activation</groupId>
-				<artifactId>activation</artifactId>
-				<version>${activation.version}</version>
-			</dependency>
-			
-			<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
-			<!-- The Bouncy Castle Crypto package is a Java implementation of cryptographic 
-				algorithms. This jar contains JCE provider and lightweight API for the Bouncy 
-				Castle Cryptography APIs for JDK 1.5 to JDK 1.8. -->
-			<dependency>
-				<groupId>org.bouncycastle</groupId>
-				<artifactId>bcprov-jdk15on</artifactId>
-				<version>${bcprov.version}</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-ext-jdk15on -->
-			<!-- The Bouncy Castle Crypto package is a Java implementation of cryptographic 
-				algorithms. This jar contains JCE provider and lightweight API for the Bouncy 
-				Castle Cryptography APIs for JDK 1.5 to JDK 1.8. Note: this package includes 
-				the NTRU encryption algorithms. -->
-			<dependency>
-				<groupId>org.bouncycastle</groupId>
-				<artifactId>bcprov-ext-jdk15on</artifactId>
-				<version>${bcprov.version}</version>
-			</dependency>
-
+		
 			<!-- https://mvnrepository.com/artifact/org.databene/contiperf -->
 			<dependency>
 				<groupId>org.databene</groupId>
@@ -445,168 +400,17 @@
 				<version>${contiperf.version}</version>
 				<scope>test</scope>
 			</dependency>
-			
-			<dependency>
-				<groupId>commons-beanutils</groupId>
-				<artifactId>commons-beanutils</artifactId>
-				<version>${commons-beanutils.version}</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
-			<dependency>
-				<groupId>commons-cli</groupId>
-				<artifactId>commons-cli</artifactId>
-				<version>${commons-cli.version}</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-			<dependency>
-				<groupId>commons-io</groupId>
-				<artifactId>commons-io</artifactId>
-				<version>${commons-io.version}</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/org.apache.commons/not-yet-commons-ssl -->
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>not-yet-commons-ssl</artifactId>
-				<version>${commons-ssl.version}</version>
-			</dependency>
-
-			<!-- https://mvnrepository.com/artifact/com.fifesoft.rtext/fife.common -->
-			<dependency>
-				<groupId>com.fifesoft.rtext</groupId>
-				<artifactId>fife.common</artifactId>
-				<version>${fife-common.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.google.guava</groupId>
-				<artifactId>guava</artifactId>
-				<version>${guava.version}</version>
-			</dependency>
 			 
-			<!-- https://mvnrepository.com/artifact/com.btr/proxy-vole -->
-			<dependency>
-				<groupId>com.btr</groupId>
-				<artifactId>proxy-vole</artifactId>
-				<version>20121203</version>
-			</dependency>
-
-			<!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
-			<!-- Plugin Framework -->
-			<dependency>
-				<groupId>org.reflections</groupId>
-				<artifactId>reflections</artifactId>
-				<version>${reflections.version}</version>
-			</dependency>
-
-			<!-- https://mvnrepository.com/artifact/org.mozilla/rhino -->
-			<dependency>
-			    <groupId>org.mozilla</groupId>
-			    <artifactId>rhino</artifactId>
-			    <version>${rhino.version}</version> 
-			</dependency>
-
-			<!-- https://mvnrepository.com/artifact/com.fifesoft/rsyntaxtextarea -->
-			<dependency>
-				<groupId>com.fifesoft</groupId>
-				<artifactId>rsyntaxtextarea</artifactId>
-				<version>${rsyntaxtextarea.version}</version>
-			</dependency>
-			
-			<!-- https://mvnrepository.com/artifact/net.sf.saxon/saxon -->
-			<dependency>
-				<groupId>net.sf.saxon</groupId>
-				<artifactId>saxon</artifactId>
-				<version>${saxon.version}</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/net.sf.saxon/saxon-dom -->
-			<dependency>
-			    <groupId>net.sf.saxon</groupId>
-			    <artifactId>saxon-dom</artifactId>
-			    <version>${saxon.version}</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/net.sf.saxon/saxon-xpath -->
-			<dependency>
-			    <groupId>net.sf.saxon</groupId>
-			    <artifactId>saxon-xpath</artifactId>
-			    <version>${saxon.version}</version>
-			</dependency>
-			
 			<!-- https://github.com/SmartBear/soapui -->
 			<dependency>
 				<groupId>com.eviware</groupId>
 				<artifactId>soapui</artifactId>
 				<version>${soapui.version}</version>
 			</dependency>
-
 			<dependency>
-				<groupId>wsdl4j</groupId>
-				<artifactId>wsdl4j</artifactId>
-				<version>${wsdl4j.version}</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/org.apache.ws.security/wss4j -->
-			<dependency>
-				<groupId>org.apache.ws.security</groupId>
-				<artifactId>wss4j</artifactId>
-				<version>${wss4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.ws.commons.util</groupId>
-				<artifactId>ws-commons-util</artifactId>
-				<version>1.0.2</version>
-			</dependency>
-
-			<dependency>
-				<groupId>xalan</groupId>
-				<artifactId>xalan</artifactId>
-				<version>${xalan.version}</version>
-			</dependency>
-
-			<!-- XML Beans : https://mvnrepository.com/artifact/org.apache.xmlbeans -->
-			<dependency>
-				<groupId>org.apache.xmlbeans</groupId>
-				<artifactId>xmlbeans</artifactId>
-				<version>${xmlbeans.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.xmlbeans</groupId>
-				<artifactId>xmlbeans-xpath</artifactId>
-				<version>${xmlbeans.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.xmlbeans</groupId>
-				<artifactId>xmlbeans-xmlpublic</artifactId>
-				<version>${xmlbeans.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.xml.bind</groupId>
-				<artifactId>jsr173_api</artifactId>
-				<version>1.0</version>
-			</dependency>
-
-			<!-- Logging -->
-
-			<dependency>
-				<groupId>log4j</groupId>
-				<artifactId>log4j</artifactId>
-				<version>${log4j.version}</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
-			<dependency>
-				<groupId>commons-logging</groupId>
-				<artifactId>commons-logging</artifactId>
-				<version>${commons-logging.version}</version>
-			</dependency>
-
-			<!-- In-app analytics -->
-			<dependency>
-				<groupId>com.smartbear.utils.analytics</groupId>
-				<artifactId>analytics-core</artifactId>
-				<version>${analytics.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.smartbear.utils.analytics</groupId>
-				<artifactId>out-app-analytics-provider</artifactId>
-				<version>${analytics.version}</version>
+			   <groupId>com.github.vindell</groupId>
+				<artifactId>soapui-template</artifactId>
+				<version>${soapui-template.version}</version>
 			</dependency>
 			
 		</dependencies>
@@ -658,190 +462,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-autoconfigure</artifactId>
 		</dependency>
-
+		
 		<!-- SoapUI dependencies -->
-
-		<dependency>
-			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcprov-jdk15on</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-cli</groupId>
-			<artifactId>commons-cli</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>not-yet-commons-ssl</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fifesoft.rtext</groupId>
-			<artifactId>fife.common</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/javax.activation/activation -->
-		<dependency>
-		    <groupId>javax.activation</groupId>
-		    <artifactId>activation</artifactId>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
-		<dependency>
-		    <groupId>javax.mail</groupId>
-		    <artifactId>javax.mail-api</artifactId>
-		</dependency>
-		<!-- <dependency>
-		    <groupId>com.sun.mail</groupId>
-		    <artifactId>javax.mail</artifactId>
-		</dependency> -->
-		<!-- https://mvnrepository.com/artifact/javax.jms/javax.jms-api -->
-		<dependency>
-		    <groupId>javax.jms</groupId>
-		    <artifactId>javax.jms-api</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.btr</groupId>
-			<artifactId>proxy-vole</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.reflections</groupId>
-			<artifactId>reflections</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fifesoft</groupId>
-			<artifactId>rsyntaxtextarea</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>net.sf.saxon</groupId>
-			<artifactId>saxon</artifactId>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/net.sf.saxon/saxon-dom -->
-		<dependency>
-		    <groupId>net.sf.saxon</groupId>
-		    <artifactId>saxon-dom</artifactId>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.mozilla/rhino -->
-		<dependency>
-		    <groupId>org.mozilla</groupId>
-		    <artifactId>rhino</artifactId>
-		</dependency>
-		
 		<dependency>
 			<groupId>com.eviware</groupId>
 			<artifactId>soapui</artifactId>
 		</dependency>
-
 		<dependency>
-			<groupId>wsdl4j</groupId>
-			<artifactId>wsdl4j</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.ws.security</groupId>
-			<artifactId>wss4j</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>xalan</groupId>
-			<artifactId>xalan</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.xmlbeans</groupId>
-			<artifactId>xmlbeans</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.xmlbeans</groupId>
-			<artifactId>xmlbeans-xpath</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>net.sf.saxon</groupId>
-					<artifactId>saxon</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.xmlbeans</groupId>
-			<artifactId>xmlbeans-xmlpublic</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jsr173_api</artifactId>
-		</dependency>
-
-		<!-- Logging -->
-
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
-
-		<!-- In-app analytics -->
-		<dependency>
-			<groupId>com.smartbear.utils.analytics</groupId>
-			<artifactId>analytics-core</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>com.smartbear.utils.analytics</groupId>
-			<artifactId>out-app-analytics-provider</artifactId>
-		</dependency>
-
-		<!-- HTTP Components -->
-
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpmime</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient-cache</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpcore</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpcore-nio</artifactId>
+		   <groupId>com.github.vindell</groupId>
+			<artifactId>soapui-template</artifactId>
 		</dependency>
 
 	</dependencies>

@@ -15,9 +15,9 @@
  */
 package com.smartbear.soapui.spring.boot;
 
-import com.smartbear.soapui.spring.boot.wsdl.WsdlInfo;
-import com.smartbear.soapui.spring.boot.wsdl.WsdlInterfaceInfo;
-import com.smartbear.soapui.spring.boot.wsdl.WsdlOperationInfo;
+import com.smartbear.soapui.template.wsdl.WsdlInfo;
+import com.smartbear.soapui.template.wsdl.WsdlInterfaceInfo;
+import com.smartbear.soapui.template.wsdl.WsdlOperationInfo;
 
 /**
  * http://www.cnblogs.com/coshaho/p/5105545.html

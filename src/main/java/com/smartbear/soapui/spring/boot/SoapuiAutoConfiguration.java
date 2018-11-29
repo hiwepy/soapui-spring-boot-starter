@@ -22,7 +22,9 @@ import com.eviware.soapui.model.environment.Environment;
 import com.eviware.soapui.settings.HttpSettings;
 import com.eviware.soapui.support.scripting.groovy.SoapUIGroovyScriptEngine;
 import com.eviware.soapui.support.scripting.js.JsScriptEngine;
-import com.smartbear.soapui.spring.boot.property.EnvironmentProperty;
+import com.smartbear.soapui.template.SoapuiRequestTemplate;
+import com.smartbear.soapui.template.SoapuiWsdlTemplate;
+import com.smartbear.soapui.template.property.EnvironmentProperty;
 
 @Configuration
 @ConditionalOnClass(WsdlProject.class)
