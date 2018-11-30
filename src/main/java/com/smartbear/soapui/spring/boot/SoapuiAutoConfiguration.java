@@ -15,16 +15,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
+import com.eviware.soapui.DefaultSoapUICore;
 import com.eviware.soapui.SoapUI;
+import com.eviware.soapui.SoapUICore;
 import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.model.environment.DefaultEnvironment;
 import com.eviware.soapui.model.environment.Environment;
-import com.eviware.soapui.settings.HttpSettings;
+import com.eviware.soapui.model.settings.Settings;
 import com.eviware.soapui.support.scripting.groovy.SoapUIGroovyScriptEngine;
 import com.eviware.soapui.support.scripting.js.JsScriptEngine;
 import com.smartbear.soapui.template.SoapuiRequestTemplate;
 import com.smartbear.soapui.template.SoapuiWsdlTemplate;
 import com.smartbear.soapui.template.property.EnvironmentProperty;
+import com.smartbear.soapui.template.setting.SoapuiProjectSettings;
+import com.smartbear.soapui.template.setting.SoapuiSettingsImpl;
 
 @Configuration
 @ConditionalOnClass(WsdlProject.class)
@@ -74,40 +78,42 @@ public class SoapuiAutoConfiguration {
 		// create new project
 		WsdlProject project = new WsdlProject();
 		
-		project.setAbortOnError(properties.isAbortOnError());
+		SoapuiProjectSettings projectSettings = properties.getSettings().getProject();
+		
+		project.setAbortOnError(projectSettings.isAbortOnError());
 		project.setActiveEnvironment(soapEnv);
-		if(StringUtils.hasText(properties.getScriptAfterLoad())) {
-			project.setAfterLoadScript(properties.getScriptAfterLoad());
+		if(StringUtils.hasText(projectSettings.getScriptAfterLoad())) {
+			project.setAfterLoadScript(projectSettings.getScriptAfterLoad());
 		}
-		if(StringUtils.hasText(properties.getScriptAfterRun())) {
-			project.setAfterRunScript(properties.getScriptAfterRun());
+		if(StringUtils.hasText(projectSettings.getScriptAfterRun())) {
+			project.setAfterRunScript(projectSettings.getScriptAfterRun());
 		}
-		if(StringUtils.hasText(properties.getScriptBeforeRun())) {
-			project.setBeforeRunScript(properties.getScriptBeforeRun());
+		if(StringUtils.hasText(projectSettings.getScriptBeforeRun())) {
+			project.setBeforeRunScript(projectSettings.getScriptBeforeRun());
 		}
-		if(StringUtils.hasText(properties.getScriptBeforeSave())) {
-			project.setBeforeSaveScript(properties.getScriptBeforeSave());
+		if(StringUtils.hasText(projectSettings.getScriptBeforeSave())) {
+			project.setBeforeSaveScript(projectSettings.getScriptBeforeSave());
 		}
-		project.setCacheDefinitions(properties.isCacheDefinitions());
-		project.setDefaultScriptLanguage(properties.getScriptLanguage().getName());
-		project.setDescription(properties.getDescription());
-		project.setEncryptionStatus(properties.getEncryptionStatus());
-		if(StringUtils.hasText(properties.getHermesConfigPath())) {
-			project.setHermesConfig(properties.getHermesConfigPath());
+		project.setCacheDefinitions(projectSettings.isCacheDefinitions());
+		project.setDefaultScriptLanguage(projectSettings.getScriptLanguage().getName());
+		project.setDescription(projectSettings.getDescription());
+		project.setEncryptionStatus(projectSettings.getEncryptionStatus());
+		if(StringUtils.hasText(projectSettings.getHermesConfigPath())) {
+			project.setHermesConfig(projectSettings.getHermesConfigPath());
 		}
-		project.setName(properties.getName());
-		Properties pro = properties.getProperties();
+		project.setName(projectSettings.getName());
+		Properties pro = projectSettings.getProperties();
 		Iterator<Object> ite = pro.keySet().iterator();
 		while (ite.hasNext()) {
 			String name = String.valueOf(ite.next());
 			project.setPropertyValue(name, pro.getProperty(name));
 		}
-		if(StringUtils.hasText(properties.getResourceRoot())) {
-			project.setResourceRoot(properties.getResourceRoot());
+		if(StringUtils.hasText(projectSettings.getResourceRoot())) {
+			project.setResourceRoot(projectSettings.getResourceRoot());
 		}
-		project.setRunType(properties.getRunType());
-		if(StringUtils.hasText(properties.getPassword())) {
-			project.setShadowPassword(properties.getPassword());
+		project.setRunType(projectSettings.getRunType());
+		if(StringUtils.hasText(projectSettings.getPassword())) {
+			project.setShadowPassword(projectSettings.getPassword());
 		}
 		project.setTimeout(properties.getTimeout());
 		
@@ -124,9 +130,26 @@ public class SoapuiAutoConfiguration {
 		return new SoapuiRequestTemplate(soapuiWsdlTemplate);
 	}
 	
+	@Bean
+	public Settings soapuiSettings(SoapuiProperties properties ) throws Exception {
+		return new SoapuiSettingsImpl(properties.getSettings());
+	}
+	
+	@Bean
+	public SoapUICore soapuiCore(Settings soapuiSettings) throws Exception {
+		SoapUICore soapUICore = new DefaultSoapUICore() {
+			@Override
+			public Settings getSettings() {
+				return soapuiSettings;
+			}
+		};
+		SoapUI.setSoapUICore(soapUICore);
+		return soapUICore;
+	}
+	
 	@PostConstruct
 	public void init() {
-		SoapUI.getSettings().setBoolean(HttpSettings.DISABLE_RESPONSE_DECOMPRESSION, true);
+		//SoapUI.getSettings().setBoolean(HttpSettings.DISABLE_RESPONSE_DECOMPRESSION, true);
 	}
 	
 }
