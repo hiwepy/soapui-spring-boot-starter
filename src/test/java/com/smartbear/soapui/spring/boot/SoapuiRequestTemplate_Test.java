@@ -22,11 +22,8 @@ import org.apache.xmlbeans.XmlException;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.eviware.soapui.model.iface.Request.SubmitException;
-import com.eviware.soapui.model.settings.Settings;
-import com.eviware.soapui.DefaultSoapUICore;
 import com.eviware.soapui.SoapUI;
-import com.eviware.soapui.SoapUICore;
+import com.eviware.soapui.model.iface.Request.SubmitException;
 import com.eviware.soapui.model.iface.Response;
 import com.eviware.soapui.support.SoapUIException;
 import com.google.common.collect.Maps;
@@ -40,16 +37,9 @@ public class SoapuiRequestTemplate_Test extends AbstractWsdlTemplate_Test {
 	
 	@Before
 	public void setupRequestTemplate() throws XmlException, IOException, SoapUIException {
-		requestTemplate = new SoapuiRequestTemplate(wsdlTemplate);
 		// 替换默认Settings
-		Settings soapuiSettings = new SoapuiSettingsImpl(new SoapuiSettings());
-		SoapUICore soapUICore = new DefaultSoapUICore() {
-			@Override
-			public Settings getSettings() {
-				return soapuiSettings;
-			}
-		};
-		SoapUI.setSoapUICore(soapUICore);
+		new SoapuiSettingsImpl(new SoapuiSettings(), SoapUI.getSettings());
+		requestTemplate = new SoapuiRequestTemplate(wsdlTemplate);
 	}
 	
 
