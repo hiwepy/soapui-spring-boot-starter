@@ -18,7 +18,7 @@ import com.eviware.soapui.impl.wsdl.WsdlProject;
 import com.eviware.soapui.model.environment.DefaultEnvironment;
 import com.eviware.soapui.model.environment.Environment;
 import com.eviware.soapui.model.settings.Settings;
-import com.smartbear.soapui.template.SoapuiRequestTemplate;
+import com.smartbear.soapui.template.SoapuiWsdlRequestTemplate;
 import com.smartbear.soapui.template.SoapuiWsdlTemplate;
 import com.smartbear.soapui.template.property.EnvironmentProperty;
 import com.smartbear.soapui.template.setting.SoapuiProjectSettings;
@@ -104,8 +104,8 @@ public class SoapuiAutoConfiguration {
 	}
 	
 	@Bean
-	public SoapuiRequestTemplate soapuiRequestTemplate(SoapuiWsdlTemplate soapuiWsdlTemplate ) throws Exception {
-		return new SoapuiRequestTemplate(soapuiWsdlTemplate);
+	public SoapuiWsdlRequestTemplate soapuiWsdlRequestTemplate(SoapuiWsdlTemplate soapuiWsdlTemplate ) throws Exception {
+		return new SoapuiWsdlRequestTemplate(soapuiWsdlTemplate);
 	}
 	
 	@PostConstruct
