@@ -13,7 +13,7 @@
 	<groupId>com.github.vindell</groupId>
 	<artifactId>spring-boot-starter-soapui</artifactId>
 	<description>Spring Boot Starter For Soapui</description>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.3.RELEASE</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://github.com/vindell/${project.artifactId}</url>
 	<packaging>jar</packaging>
@@ -380,7 +380,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<contiperf.version>2.3.4</contiperf.version>
 		<soapui.version>5.4.0</soapui.version>
-		<soapui-template.version>1.0.1-SNAPSHOT</soapui-template.version>
+		<soapui-template.version>1.0.1.RELEASE</soapui-template.version>
 		<maven.version>3.0</maven.version>
 		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 		<maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
