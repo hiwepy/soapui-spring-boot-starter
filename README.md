@@ -1,4 +1,4 @@
-#spring-boot-starter-soapui
+# soapui-spring-boot-starter
 
 ### Requirements
 ------------
@@ -9,7 +9,7 @@
 ``` xml
 <dependency>
 	<groupId>com.github.vindell</groupId>
-	<artifactId>spring-boot-starter-soapui</artifactId>
+	<artifactId>soapui-spring-boot-starter</artifactId>
 	<version>${project.version}</version>
 </dependency>
 ```

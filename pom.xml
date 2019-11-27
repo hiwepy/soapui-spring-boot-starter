@@ -11,7 +11,7 @@
 	</parent>
 
 	<groupId>com.github.vindell</groupId>
-	<artifactId>spring-boot-starter-soapui</artifactId>
+	<artifactId>soapui-spring-boot-starter</artifactId>
 	<description>Spring Boot Starter For Soapui</description>
 	<version>1.0.3.RELEASE</version>
 	<name>${project.groupId}:${project.artifactId}</name>
