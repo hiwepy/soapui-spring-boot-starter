@@ -489,7 +489,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <commons-ssl.version>0.3.9</commons-ssl.version>
+        <commons-ssl.version>0.3.11</commons-ssl.version>
         <contiperf.version>2.3.4</contiperf.version>
         <soapui.version>5.4.0</soapui.version>
         <soapui-template.version>3.0.x.20260630-SNAPSHOT</soapui-template.version>
@@ -500,7 +500,7 @@
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
         <maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
                 <commons-io.version>2.22.0</commons-io.version>
                 <junit.version>4.13.2</junit.version>
@@ -521,7 +521,7 @@
             <!-- NOT Yet Commons SSL -->
             <!-- For Not-Yet-Commons Ssl -->
             <dependency>
-                <groupId>org.apache.commons</groupId>
+                <groupId>ca.juliusdavies</groupId>
                 <artifactId>not-yet-commons-ssl</artifactId>
                 <version>${commons-ssl.version}</version>
             </dependency>
@@ -619,21 +619,39 @@
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
 
+        <!-- For Spring Boot WebMvc AutoConfiguration -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-webmvc</artifactId>
+        </dependency>
+
         <!-- SoapUI dependencies -->
         <!-- https://mvnrepository.com/artifact/com.eviware/soapui -->
         <dependency>
             <groupId>com.eviware</groupId>
             <artifactId>soapui</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>not-yet-commons-ssl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- Source: https://github.com/easy-4-java/soapui-template — easy4j soapui-template -->
         <dependency>
            <groupId>io.github.easy4j</groupId>
             <artifactId>soapui-template</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>not-yet-commons-ssl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- NOT Yet Commons SSL -->
         <!-- For Not-Yet-Commons Ssl -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
+            <groupId>ca.juliusdavies</groupId>
             <artifactId>not-yet-commons-ssl</artifactId>
             <version>${commons-ssl.version}</version>
         </dependency>
