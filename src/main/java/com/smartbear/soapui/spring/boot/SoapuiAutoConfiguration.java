@@ -28,6 +28,7 @@ import com.smartbear.soapui.template.setting.SoapuiSettingsImpl;
 @ConditionalOnClass(WsdlProject.class)
 @AutoConfigureAfter(WebMvcAutoConfiguration.class)
 @EnableConfigurationProperties(SoapuiProperties.class)
+/**\n * Auto-configuration for SoapuiAutoConfiguration.\n *\n * @author [@Loong Wan](https://github.com/loong10k)\n * @since 1.0.0\n */
 public class SoapuiAutoConfiguration {
 
 	@Bean

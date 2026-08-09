@@ -18,6 +18,7 @@ package com.smartbear.soapui.spring.boot;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(SoapuiProperties.PREFIX)
+/**\n * Auto-configuration for SoapuiProperties.\n *\n * @author [@Loong Wan](https://github.com/loong10k)\n * @since 1.0.0\n */
 public class SoapuiProperties extends com.smartbear.soapui.template.SoapuiProperties{
 
 	public static final String PREFIX = "soapui";
