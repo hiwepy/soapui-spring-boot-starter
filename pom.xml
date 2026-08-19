@@ -1,41 +1,45 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>4.1.0-M4</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <groupId>io.github.easy4j</groupId>
     <artifactId>soapui-spring-boot-starter</artifactId>
-    <description>Spring Boot Starter For Soapui</description>
     <version>4.1.x.20260630-SNAPSHOT</version>
-    <name>${project.groupId}:${project.artifactId}</name>
-    <url>https://github.com/easy-4-java/${project.artifactId}</url>
     <packaging>jar</packaging>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Spring Boot Starter For Soapui</description>
+    <url>https://github.com/easy-4-java/${project.artifactId}</url>
 
+    <!-- 开源协议采用 Apache 2.0 协议 -->
     <licenses>
-
         <license>
             <name>The Apache Software License, Version 2.0</name>
             <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
 
+    <!-- 源码仓库（SCM）信息 -->
     <scm>
-
         <connection>scm:git:https://github.com/easy-4-java/${project.artifactId}.git</connection>
+
         <developerConnection>scm:git:https://github.com/easy-4-java/${project.artifactId}.git</developerConnection>
+
         <url>https://github.com/easy-4-java/${project.artifactId}</url>
+
         <tag>${project.artifactId}</tag>
     </scm>
 
+    <!-- 开发者信息 -->
     <developers>
-
         <developer>
             <name>wandl</name>
             <email>hiwepy@gmail.com</email>
@@ -46,22 +50,250 @@
         </developer>
     </developers>
 
-    <distributionManagement>
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.version>3.0</maven.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- Third-Party Dependencies -->
+        <commons-io.version>2.22.0</commons-io.version>
+        <commons-ssl.version>0.3.11</commons-ssl.version>
+        <contiperf.version>2.3.4</contiperf.version>
+        <junit.version>4.13.2</junit.version>
+        <slf4j.version>2.0.18</slf4j.version>
+        <soapui-template.version>3.0.x.20260630-SNAPSHOT</soapui-template.version>
+        <soapui.version>5.4.0</soapui.version>
+        <!-- Maven Plugin Dependencies -->
+        <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+        <maven-central-publishing-plugin.version>0.11.0</maven-central-publishing-plugin.version>
+        <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.8.0</maven-dependency-plugin.version>
+        <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
+        <maven-enforcer-plugin.version>3.6.3</maven-enforcer-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0</maven-failsafe-plugin.version>
+        <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
+        <maven-help-plugin.version>3.5.0</maven-help-plugin.version>
+        <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
+        <maven-invoker-plugin.version>3.8.0</maven-invoker-plugin.version>
+        <maven-jacoco-plugin.version>0.8.15</maven-jacoco-plugin.version>
+        <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
+        <maven-nexus-staging-plugin.version>1.7.0</maven-nexus-staging-plugin.version>
+        <maven-release-plugin.version>3.3.1</maven-release-plugin.version>
+        <maven-resources-plugin.version>3.5.0</maven-resources-plugin.version>
+        <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
+        <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+        <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
+    </properties>
 
-        <snapshotRepository>
-            <id>ossrh</id>
-            <name>Maven Snapshots Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
+    <dependencyManagement>
+        <dependencies>
+            <!-- https://mvnrepository.com/artifact/org.databene/contiperf -->
+            <dependency>
+                <groupId>org.databene</groupId>
+                <artifactId>contiperf</artifactId>
+                <version>${contiperf.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- NOT Yet Commons SSL -->
+            <!-- For Not-Yet-Commons Ssl -->
+            <dependency>
+                <groupId>ca.juliusdavies</groupId>
+                <artifactId>not-yet-commons-ssl</artifactId>
+                <version>${commons-ssl.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.eviware/soapui -->
+            <!-- https://github.com/SmartBear/soapui -->
+            <dependency>
+                <groupId>com.eviware</groupId>
+                <artifactId>soapui</artifactId>
+                <version>${soapui.version}</version>
+            </dependency>
+            <!-- Source: https://github.com/easy-4-java/soapui-template — easy4j soapui-template -->
+            <dependency>
+                <groupId>io.github.easy4j</groupId>
+                <artifactId>soapui-template</artifactId>
+                <version>${soapui-template.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.databene/contiperf -->
+        <dependency>
+            <groupId>org.databene</groupId>
+            <artifactId>contiperf</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- For Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- For Slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- Core starter, including auto-configuration support, logging and YAML -->
+        <!-- For Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Spring Boot Test 依赖 -->
+        <!-- For Spring Boot Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUnit Vintage Engine: enables running legacy JUnit 4 tests -->
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- @ConfigurationProperties annotation processing (metadata for IDEs) -->
+        <!-- For Spring Boot Configuration Processor -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Compile dependencies -->
+        <!-- For Spring Boot AutoConfiguration -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+        <!-- For Spring Boot WebMvc AutoConfiguration -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-webmvc</artifactId>
+        </dependency>
+
+        <!-- SoapUI dependencies -->
+        <!-- https://mvnrepository.com/artifact/com.eviware/soapui -->
+        <dependency>
+            <groupId>com.eviware</groupId>
+            <artifactId>soapui</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>not-yet-commons-ssl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Source: https://github.com/easy-4-java/soapui-template — easy4j soapui-template -->
+        <dependency>
+            <groupId>io.github.easy4j</groupId>
+            <artifactId>soapui-template</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>not-yet-commons-ssl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- NOT Yet Commons SSL -->
+        <!-- For Not-Yet-Commons Ssl -->
+        <dependency>
+            <groupId>ca.juliusdavies</groupId>
+            <artifactId>not-yet-commons-ssl</artifactId>
+            <version>${commons-ssl.version}</version>
+        </dependency>
+
+        <!-- For JUnit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- For Commons IO -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- For JUnit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- 制品发布仓库配置（distributionManagement） -->
+    <distributionManagement>
         <repository>
-            <id>ossrh</id>
-            <name>Maven Central Staging Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>2624322-release-6F6h6R</id>
+            <url>https://packages.aliyun.com/6927b116e6c3e0425dbdf60d/maven/2624322-release-6f6h6r</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
+        <snapshotRepository>
+            <id>2624322-snapshot-3EoOv3</id>
+            <url>https://packages.aliyun.com/6927b116e6c3e0425dbdf60d/maven/2624322-snapshot-3eoov3</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
     </distributionManagement>
 
+    <!-- 构建配置（Build） -->
     <build>
-
         <pluginManagement>
             <plugins>
                 <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
@@ -74,6 +306,13 @@
                         <target>${java.version}</target>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <maxmem>512M</maxmem>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
                     </configuration>
                 </plugin>
                 <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-enforcer-plugin -->
@@ -149,9 +388,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>${maven-source-plugin.version}</version>
-                    <configuration>
-                        <attach>true</attach>
-                    </configuration>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -167,18 +403,16 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
-                        <!-- 跳过单元测试 -->
-                        <!-- forkMode 可设置值有 “never”， “once”， “always” 和 “pertest”。 pretest：
-                            每一个测试创建一个新进程，为每个测试创建新的JVM是单独测试的最彻底方式，但也是最慢的，不适合hudson上持续回归。 once：在一个进程中进行所有测试。once为默认设置，在Hudson上持续回归时建议使用默认设置。
-                            always：在一个进程中并行的运行脚本，Junit4.7以上版本才可以使用，surefire的版本要在2.6以上提供这个功能，其中 threadCount：执行时，指定可分配的线程数量。只和参数parallel配合使用有效。默认：5。 -->
-                        <forkMode>once</forkMode>
+                        <skip>false</skip>
+                        <skipTests>false</skipTests>
+                        <!--suppress UnresolvedMavenProperty -->
                         <argLine>${argLine} -Xmx1024m -Dfile.encoding=UTF-8</argLine>
                         <additionalClasspathElements>
                             <additionalClasspathElement>${basedir}/target/test-classes</additionalClasspathElement>
                         </additionalClasspathElements>
                         <includes>
                             <include>**/*Test.java</include>
-                        <include>**/*_Test.java</include>
+                            <include>**/*_Test.java</include>
                         </includes>
                         <excludes>
                             <exclude>**/TestBean.java</exclude>
@@ -237,73 +471,41 @@
                         <detectBuildFailures>true</detectBuildFailures>
                     </configuration>
                 </plugin>
-                        <!-- 中央仓库发布插件: 将制品发布至 Maven Central -->
-            <!-- https://mvnrepository.com/artifact/org.sonatype.central/central-publishing-maven-plugin -->
-            <plugin>
                 <!-- 中央仓库发布插件: 将制品发布至 Maven Central -->
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>${maven-central-publishing-plugin.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <publishingServerId>central</publishingServerId>
-                </configuration>
-            </plugin>
+                <!-- https://mvnrepository.com/artifact/org.sonatype.central/central-publishing-maven-plugin -->
+                <plugin>
+                    <!-- 中央仓库发布插件: 将制品发布至 Maven Central -->
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>${maven-central-publishing-plugin.version}</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <publishingServerId>central</publishingServerId>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
-            <!--环境检查插件：代码编译前的环境检查 -->
-            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-enforcer-plugin -->
-            
-                        <!-- 单元测试覆盖率插件: 强制要求 90% 覆盖率 -->
-            <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
             <plugin>
-                <!-- 单元测试覆盖率插件: 强制要求 90% 覆盖率 -->
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${maven-jacoco-plugin.version}</version>
                 <executions>
-                    <!-- 准备 jacoco agent: 注入到 surefire 启动的 JVM -->
+                    <execution><id>prepare-agent</id><goals><goal>prepare-agent</goal></goals></execution>
+                    <execution><id>report</id><phase>verify</phase><goals><goal>report</goal></goals></execution>
                     <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <!-- 生成覆盖率报告 -->
-                    <execution>
-                        <id>report</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                    <!-- 强制覆盖率 >= 90% -->
-                    <execution>
-                        <id>check</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
+                        <id>check</id><phase>verify</phase><goals><goal>check</goal></goals>
                         <configuration>
                             <haltOnFailure>true</haltOnFailure>
-                            <rules>
-                                <rule>
-                                    <element>BUNDLE</element>
-                                    <limits>
-                                        <limit>
-                                            <counter>LINE</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>0.90</minimum>
-                                        </limit>
-                                    </limits>
-                                </rule>
-                            </rules>
+                            <rules><rule><element>BUNDLE</element><limits><limit>
+                                <counter>LINE</counter><value>COVEREDRATIO</value><minimum>0.90</minimum>
+                            </limit></limits></rule></rules>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-
+            <!--环境检查插件：代码编译前的环境检查 -->
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-enforcer-plugin -->
             <plugin>
                 <!-- 环境检查插件：代码编译前的环境检查 -->
                 <groupId>org.apache.maven.plugins</groupId>
@@ -362,7 +564,6 @@
     </build>
 
     <profiles>
-
         <profile>
             <id>disable-javadoc-doclint</id>
             <activation>
@@ -458,224 +659,16 @@
                         <!-- 将制品 staging 至 OSS Sonatype Nexus -->
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                    </plugin>                    <!-- https://mvnrepository.com/artifact/org.sonatype.central/central-publishing-maven-plugin -->
+                    </plugin>
+                    <!-- https://mvnrepository.com/artifact/org.sonatype.central/central-publishing-maven-plugin -->
                     <plugin>
                         <!-- 中央仓库发布插件: 将制品发布至 Maven Central -->
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
                     </plugin>
-
                 </plugins>
             </build>
         </profile>
     </profiles>
-
-    <repositories>
-
-        <repository>
-            <id>smartbear-sweden-plugin-repository</id>
-            <url>http://smartbearsoftware.com/repository/maven2/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <properties>
-        <java.version>21</java.version>
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <commons-ssl.version>0.3.11</commons-ssl.version>
-        <contiperf.version>2.3.4</contiperf.version>
-        <soapui.version>5.4.0</soapui.version>
-        <soapui-template.version>3.0.x.20260630-SNAPSHOT</soapui-template.version>
-        <maven.version>3.0</maven.version>
-        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <maven-jacoco-plugin.version>0.8.15</maven-jacoco-plugin.version>
-        <maven-central-publishing-plugin.version>0.11.0</maven-central-publishing-plugin.version>
-        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
-        <maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
-                <commons-io.version>2.22.0</commons-io.version>
-                <junit.version>4.13.2</junit.version>
-                <slf4j.version>2.0.18</slf4j.version>
-    </properties>
-
-    <dependencyManagement>
-
-        <dependencies>
-
-            <!-- https://mvnrepository.com/artifact/org.databene/contiperf -->
-            <dependency>
-                <groupId>org.databene</groupId>
-                <artifactId>contiperf</artifactId>
-                <version>${contiperf.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <!-- NOT Yet Commons SSL -->
-            <!-- For Not-Yet-Commons Ssl -->
-            <dependency>
-                <groupId>ca.juliusdavies</groupId>
-                <artifactId>not-yet-commons-ssl</artifactId>
-                <version>${commons-ssl.version}</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/com.eviware/soapui -->
-            <!-- https://github.com/SmartBear/soapui -->
-            <dependency>
-                <groupId>com.eviware</groupId>
-                <artifactId>soapui</artifactId>
-                <version>${soapui.version}</version>
-            </dependency>
-            <!-- Source: https://github.com/easy-4-java/soapui-template — easy4j soapui-template -->
-            <dependency>
-               <groupId>io.github.easy4j</groupId>
-                <artifactId>soapui-template</artifactId>
-                <version>${soapui-template.version}</version>
-            </dependency>
-
-                <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-</dependencies>
-    </dependencyManagement>
-
-    <dependencies>
-
-        <!-- https://mvnrepository.com/artifact/org.databene/contiperf -->
-        <dependency>
-            <groupId>org.databene</groupId>
-            <artifactId>contiperf</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- For Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <!-- For Slf4j -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
-        <!-- Core starter, including auto-configuration support, logging and YAML -->
-        <!-- For Spring Boot -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- Spring Boot Test 依赖 -->
-        <!-- For Spring Boot Test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- JUnit Vintage Engine: enables running legacy JUnit 4 tests -->
-        <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- @ConfigurationProperties annotation processing (metadata for IDEs) -->
-        <!-- For Spring Boot Configuration Processor -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Compile dependencies -->
-        <!-- For Spring Boot AutoConfiguration -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-        </dependency>
-
-        <!-- For Spring Boot WebMvc AutoConfiguration -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-webmvc</artifactId>
-        </dependency>
-
-        <!-- SoapUI dependencies -->
-        <!-- https://mvnrepository.com/artifact/com.eviware/soapui -->
-        <dependency>
-            <groupId>com.eviware</groupId>
-            <artifactId>soapui</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>not-yet-commons-ssl</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- Source: https://github.com/easy-4-java/soapui-template — easy4j soapui-template -->
-        <dependency>
-           <groupId>io.github.easy4j</groupId>
-            <artifactId>soapui-template</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>not-yet-commons-ssl</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- NOT Yet Commons SSL -->
-        <!-- For Not-Yet-Commons Ssl -->
-        <dependency>
-            <groupId>ca.juliusdavies</groupId>
-            <artifactId>not-yet-commons-ssl</artifactId>
-            <version>${commons-ssl.version}</version>
-        </dependency>
-
-            <!-- For JUnit -->
-            <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- For Commons IO -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
-            <scope>test</scope>
-        </dependency>
-            <!-- For JUnit -->
-            <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
 </project>
