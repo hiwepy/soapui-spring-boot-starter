@@ -32,10 +32,18 @@ public class SoapuiAutoConfiguration {
 		logger.info("SoapuiAutoConfiguration initialized with prefix '{}'", SoapuiProperties.PREFIX);
 	}
 
+    /**
+     * <p>Returns the application context.</p>
+     * @return the get application context
+     */
 	public ApplicationContext getApplicationContext() {
 		return applicationContext;
 	}
 
+    /**
+     * <p>Returns the properties.</p>
+     * @return the get properties
+     */
 	public SoapuiProperties getProperties() {
 		return properties;
 	}
